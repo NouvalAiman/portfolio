@@ -43,8 +43,9 @@ export function Experience() {
         </FadeIn>
 
         <div className="relative">
+          {/* GARIS TIMELINE UTAMA */}
           <motion.div
-            className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+            className="absolute left-1/3 lg:left-48 top-0 bottom-0 w-px -translate-x-1/2"
             style={{
               background: "linear-gradient(to bottom, var(--border-subtle), var(--primary), var(--border-subtle))",
             }}
@@ -85,8 +86,10 @@ export function Experience() {
                     key={exp.id}
                     className="relative flex gap-8"
                   >
+                    {/* BAGIAN KIRI (TANGGAL & TITIK NEON) */}
                     <div className="relative flex-shrink-0 w-1/3 lg:w-48 text-right pr-8">
-                      <div className="absolute right-0 top-4 w-4 h-4 rounded-full border-4 z-10 flex-shrink-0"
+                      {/* TITIK NEON KECIL */}
+                      <div className="absolute -right-2 top-4 w-4 h-4 rounded-full border-4 z-10 flex-shrink-0"
                         style={{
                           borderColor: "var(--primary)",
                           background: "var(--background)",
@@ -117,6 +120,7 @@ export function Experience() {
                       </div>
                     </div>
 
+                    {/* BAGIAN KANAN (KARTU KONTEN) */}
                     <div className="flex-1 glass-hover p-6 lg:p-8 rounded-xl min-w-0">
                       <div className="flex items-start justify-between gap-4 mb-4">
                         <div>
@@ -190,8 +194,6 @@ export function Experience() {
                         ))}
                       </StaggerContainer>
                     </div>
-
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 w-px h-full hidden lg:block" />
                   </motion.article>
                 ))}
               </StaggerContainer>
@@ -199,7 +201,7 @@ export function Experience() {
 
             <FadeIn delay={0.5} direction="up" className="text-center py-8">
               <motion.a
-                href="https://linkedin.com/in/holiq"
+                href="https://linkedin.com/in/nouval-aiman-a93321417"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"

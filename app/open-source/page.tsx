@@ -18,20 +18,20 @@ const metrics = [
 ];
 
 const packages = [
-  { name: "@holiq/ui-core", version: "2.4.1", desc: "Core UI primitives with zero dependencies", installs: "45k/week", license: "MIT" },
-  { name: "@holiq/hooks", version: "1.8.0", desc: "Collection of 50+ React hooks for state, effects & lifecycle", installs: "78k/week", license: "MIT" },
-  { name: "@holiq/form", version: "3.1.2", desc: "Type-safe form validation with Zod integration", installs: "23k/week", license: "MIT" },
-  { name: "@holiq/animations", version: "1.2.0", desc: "Framer Motion wrappers for common animations", installs: "12k/week", license: "MIT" },
-  { name: "@holiq/cli", version: "0.9.5", desc: "Project scaffolding & code generation CLI", installs: "5k/week", license: "MIT" },
-  { name: "@holiq/config", version: "1.0.3", desc: "Shared ESLint, TypeScript & Prettier configs", installs: "31k/week", license: "MIT" },
+  { name: "@nouval/ui-core", version: "2.4.1", desc: "Core UI primitives with zero dependencies", installs: "45k/week", license: "MIT" },
+  { name: "@nouval/hooks", version: "1.8.0", desc: "Collection of 50+ React hooks for state, effects & lifecycle", installs: "78k/week", license: "MIT" },
+  { name: "@nouval/form", version: "3.1.2", desc: "Type-safe form validation with Zod integration", installs: "23k/week", license: "MIT" },
+  { name: "@nouval/animations", version: "1.2.0", desc: "Framer Motion wrappers for common animations", installs: "12k/week", license: "MIT" },
+  { name: "@nouval/cli", version: "0.9.5", desc: "Project scaffolding & code generation CLI", installs: "5k/week", license: "MIT" },
+  { name: "@nouval/config", version: "1.0.3", desc: "Shared ESLint, TypeScript & Prettier configs", installs: "31k/week", license: "MIT" },
 ];
 
 const prs = [
-  { id: 247, title: "feat: Add React 19 support to ui-core", author: "holiq", status: "merged", branch: "feat/react-19", date: "2 hours ago", labels: ["feature", "breaking-change"] },
+  { id: 247, title: "feat: Add React 19 support to ui-core", author: "nouval", status: "merged", branch: "feat/react-19", date: "2 hours ago", labels: ["feature", "breaking-change"] },
   { id: 245, title: "fix: Memory leak in useEventListener hook", author: "contributor-john", status: "merged", branch: "fix/memory-leak", date: "1 day ago", labels: ["bug", "performance"] },
-  { id: 243, title: "docs: Update API reference for form v3", author: "holiq", status: "merged", branch: "docs/form-v3", date: "3 days ago", labels: ["documentation"] },
+  { id: 243, title: "docs: Update API reference for form v3", author: "nouval", status: "merged", branch: "docs/form-v3", date: "3 days ago", labels: ["documentation"] },
   { id: 241, title: "feat: Add staggerChildren variant to animations", author: "jane-dev", status: "open", branch: "feat/stagger", date: "5 days ago", labels: ["feature", "enhancement"] },
-  { id: 239, title: "refactor: Simplify CLI template engine", author: "holiq", status: "closed", branch: "refactor/cli", date: "1 week ago", labels: ["refactor", "cli"] },
+  { id: 239, title: "refactor: Simplify CLI template engine", author: "nouval", status: "closed", branch: "refactor/cli", date: "1 week ago", labels: ["refactor", "cli"] },
   { id: 237, title: "test: Add integration tests for form validation", author: "test-bot", status: "merged", branch: "test/form-integration", date: "2 weeks ago", labels: ["testing", "ci"] },
 ];
 
@@ -240,7 +240,7 @@ export default function OpenSourcePage() {
 
             <FadeIn delay={0.5} direction="up" className="mt-12 text-center">
               <motion.a
-                href="https://github.com/holiq"
+                href="https://github.com/nouval"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"

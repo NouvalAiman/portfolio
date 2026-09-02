@@ -49,7 +49,7 @@ export function Navbar() {
             whileTap={{ scale: 0.98 }}
           >
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Holiq
+              Nouval Aiman
             </span>
             <motion.span
               className="text-xs font-mono text-primary/70 opacity-0"
@@ -94,12 +94,12 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-4">
             <motion.a
-              href="#contact"
+              href="/services"
               className="px-5 py-2 text-sm font-medium text-background bg-primary rounded-lg glow-primary hover:scale-105 hover:brightness-110 transition-all duration-200"
               whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 229, 255, 0.5)" }}
               whileTap={{ scale: 0.95 }}
             >
-              Get in Touch
+              Order Now
             </motion.a>
             <motion.button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -146,7 +146,7 @@ export function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Holiq
+                  Nouval
                 </span>
               </motion.a>
               <motion.button
@@ -181,7 +181,7 @@ export function Navbar() {
                 </motion.a>
               ))}
               <motion.a
-                href="#contact"
+                href="/services"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-4 px-5 py-3 text-center text-base font-medium text-background bg-primary rounded-lg glow-primary hover:brightness-110 transition-all"
                 whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 229, 255, 0.5)" }}
@@ -190,7 +190,7 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * (navItems.length + 1), duration: 0.3 }}
               >
-                Get in Touch
+                Order Now
               </motion.a>
             </nav>
 

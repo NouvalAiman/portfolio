@@ -64,7 +64,7 @@ export function Hero() {
             transition={{ delay: 0.3, duration: 0.7 }}
           >
             <span className="bg-gradient-to-r from-foreground via-primary to-secondary bg-clip-text text-transparent">
-              Holiq
+              Nouval Aiman
             </span>
             <br />
             <span className="text-2xl sm:text-3xl lg:text-4xl font-normal bg-gradient-to-r from-muted to-foreground/60 bg-clip-text text-transparent">
@@ -78,7 +78,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Crafting high-performance web applications with React, Next.js, TypeScript & Go.
+            Crafting high-performance web applications with Laravel, React, Next.js, TypeScript & Go.
             {"\n"}
             Obsessed with clean architecture, developer experience & runtime performance.
           </motion.p>
@@ -89,7 +89,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <motion.button
+            <motion.a
+              href="#projects"
               className="relative group px-8 py-4 bg-primary text-background font-heading font-semibold text-base rounded-lg overflow-hidden glow-primary"
               whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(0, 229, 255, 0.5), 0 0 80px rgba(0, 229, 255, 0.2)" }}
               whileTap={{ scale: 0.98 }}
@@ -102,9 +103,12 @@ export function Hero() {
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
-            </motion.button>
+            </motion.a>
 
-            <motion.button
+            <motion.a
+              href="https://github.com/NouvalAiman"
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative group px-8 py-4 glass border-border/50 text-foreground font-heading font-semibold text-base rounded-lg overflow-hidden hover:border-primary/50 hover:text-primary transition-all"
               whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(176, 38, 255, 0.3)" }}
               whileTap={{ scale: 0.98 }}
@@ -113,7 +117,7 @@ export function Hero() {
                 <Code className="w-5 h-5" />
                 GitHub
               </span>
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           <motion.div

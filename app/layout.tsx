@@ -20,37 +20,37 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Holiq — Full Stack Engineer",
-    template: "%s | Holiq",
+    default: "Nouval — Full Stack Engineer",
+    template: "%s | Nouval",
   },
   description: "Building scalable web applications with modern technologies. Specialized in React, Next.js, TypeScript, and cloud-native architectures.",
   keywords: ["Full Stack Engineer", "React", "Next.js", "TypeScript", "Go", "Kubernetes", "Portfolio", "Web Developer"],
-  authors: [{ name: "Holiq", url: "https://holiq.dev" }],
-  creator: "Holiq",
-  publisher: "Holiq",
+  authors: [{ name: "Nouval", url: "https://nouval.dev" }],
+  creator: "Nouval",
+  publisher: "Nouval",
   robots: "index, follow",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://holiq.dev",
-    siteName: "Holiq Portfolio",
-    title: "Holiq — Full Stack Engineer",
+    url: "https://nouval.dev",
+    siteName: "Nouval Portfolio",
+    title: "Nouval — Full Stack Engineer",
     description: "Building scalable web applications with modern technologies.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Holiq Portfolio",
+        alt: "Nouval Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Holiq — Full Stack Engineer",
+    title: "Nouval — Full Stack Engineer",
     description: "Building scalable web applications with modern technologies.",
     images: ["/og-image.png"],
-    creator: "@holiq",
+    creator: "@nouval",
   },
   icons: {
     icon: "/favicon.ico",

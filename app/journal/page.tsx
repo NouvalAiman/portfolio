@@ -273,7 +273,7 @@ articles.forEach(article => {
                           </motion.button>
                           <div className="flex items-center gap-2">
                             <motion.a
-                              href={`https://github.com/holiq/journal/blob/main/posts/${post.slug}.mdx`}
+                              href={`https://github.com/nouval/journal/blob/main/posts/${post.slug}.mdx`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="p-2 glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -344,7 +344,7 @@ articles.forEach(article => {
                   <h3 className="font-heading font-semibold text-foreground mb-2">Open Source</h3>
                   <p className="text-sm text-muted mb-4">All articles are open source. Contribute corrections or translations.</p>
                   <motion.a
-                    href="https://github.com/holiq/journal"
+                    href="https://github.com/nouval/journal"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2 glass border-border/50 rounded-lg text-sm font-mono text-muted hover:border-secondary/50 hover:text-secondary transition-all"

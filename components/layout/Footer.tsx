@@ -1,17 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GitBranch, Link2, Send, Mail, Heart, Terminal } from "lucide-react";
+import { Mail, Heart, Terminal } from "lucide-react";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { socialLinks, siteConfig } from "@/data/portfolio";
 
 function getSocialIcon(icon: string) {
   switch (icon) {
     case "github":
-      return <GitBranch className="w-5 h-5" />;
+      return <FaGithub className="w-5 h-5" />;
     case "linkedin":
-      return <Link2 className="w-5 h-5" />;
-    case "twitter":
-      return <Send className="w-5 h-5" />;
+      return <FaLinkedin className="w-5 h-5" />;
+    case "instagram":
+      return <FaInstagram className="w-5 h-5" />;
     case "mail":
       return <Mail className="w-5 h-5" />;
     default:
@@ -41,7 +42,7 @@ export function Footer() {
           >
             <div className="flex items-center gap-2 mb-4">
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-xl font-heading font-bold tracking-tight">
-                Holiq
+                Nouval Aiman
               </span>
               <span className="text-xs font-mono text-primary/70">.dev</span>
             </div>
@@ -85,11 +86,11 @@ export function Footer() {
               ].map((item, index) => (
                 <motion.li key={item.label} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * (index + 1), duration: 0.3 }}>
 <a
-                      href={item.href}
-                      className="text-sm text-muted hover:text-primary transition-colors font-mono"
-                    >
-                      {" > "}{item.label}
-                    </a>
+                  href={item.href}
+                  className="text-sm text-muted hover:text-primary transition-colors font-mono"
+                >
+                  {" > "}{item.label}
+                </a>
                 </motion.li>
               ))}
             </ul>
@@ -134,7 +135,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-muted font-mono">
                 <Mail className="w-4 h-4 text-primary/70" />
-                <a href="mailto:hi@holiq.dev" className="hover:text-primary transition-colors">hi@holiq.dev</a>
+                <a href="mailto:nouvalaiman51@gmail.com" className="hover:text-primary transition-colors">nouvalaiman51@gmail.com</a>
               </li>
               <li className="flex items-center gap-2 text-muted font-mono">
                 <Terminal className="w-4 h-4 text-primary/70" />

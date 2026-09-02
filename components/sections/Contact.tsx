@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Send, Terminal, AlertCircle, CheckCircle, Loader2, X } from "lucide-react";
+import { Send, Terminal, AlertCircle, CheckCircle, Loader2, X } from "lucide-react";
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
 
@@ -11,20 +12,22 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 function getContactIcon(icon: string) {
   switch (icon) {
     case "github":
-      return <Terminal className="w-5 h-5" />;
+      return <FaGithub className="w-5 h-5" />;
     case "linkedin":
-      return <Mail className="w-5 h-5" />;
-    case "twitter":
-      return <Send className="w-5 h-5" />;
+      return <FaLinkedin className="w-5 h-5" />;
+    case "instagram":
+      return <FaInstagram className="w-5 h-5" />;
+    case "mail":
+      return <FaEnvelope className="w-5 h-5" />;
     default:
-      return <Terminal className="w-5 h-5" />;
+      return <FaGithub className="w-5 h-5" />;
   }
 }
 
 const contactLinks = [
-  { label: "GitHub", value: "github.com/holiq", href: "https://github.com/holiq", icon: "github" },
-  { label: "LinkedIn", value: "linkedin.com/in/holiq", href: "https://linkedin.com/in/holiq", icon: "linkedin" },
-  { label: "Twitter", value: "@holiq", href: "https://twitter.com/holiq", icon: "twitter" },
+  { label: "GitHub", value: "github.com/NouvalAiman", href: "https://github.com/NouvalAiman", icon: "github" },
+  { label: "LinkedIn", value: "linkedin.com/in/nouval-aiman-a93321417", href: "https://id.linkedin.com/in/nouval-aiman-a93321417", icon: "linkedin" },
+  { label: "Instagram", value: "@palll_aimannnnn", href: "https://www.instagram.com/palll_aimannnnn?igsi=bWEweXFpdjRmYmJ0", icon: "instagram" },
 ];
 
 const availability = [
@@ -122,11 +125,11 @@ export function Contact() {
                   className="p-3 glass border-border/50 rounded-lg text-primary"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
-                  <Mail className="w-6 h-6" />
+                  <FaEnvelope className="w-6 h-6" />
                 </motion.div>
                 <div>
                   <h3 className="font-heading font-semibold text-foreground">Direct Contact</h3>
-                  <p className="text-sm text-muted">hi@holiq.dev</p>
+                  <p className="text-sm text-muted">nouvalaiman51@gmail.com</p>
                 </div>
               </div>
 
@@ -274,7 +277,7 @@ export function Contact() {
                         required={field.required}
                         placeholder={field.placeholder}
                         rows={6}
-                        className="w-full bg-transparent border-none border-b-2 border-border/50 focus:border-primary focus:glow-primary focus:outline-none text-foreground placeholder:text-muted/50 font-mono text-sm resize-none transition-all duration-300 py-4 px-0"
+                        className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
                       />
@@ -287,7 +290,7 @@ export function Contact() {
                         onChange={handleChange}
                         required={field.required}
                         placeholder={field.placeholder}
-                        className="w-full bg-transparent border-none border-b-2 border-border/50 focus:border-primary focus:glow-primary focus:outline-none text-foreground placeholder:text-muted/50 font-mono text-sm transition-all duration-300 py-4 px-0"
+                        className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
                       />
@@ -326,7 +329,7 @@ export function Contact() {
               </motion.button>
 
               <p className="text-center text-xs text-muted font-mono mt-4">
-                No backend? <a href="mailto:hi@holiq.dev" className="text-primary hover:underline">Email directly</a> instead.
+                No backend? <a href="mailto:nouvalaiman51@gmail.com" className="text-primary hover:underline">Email directly</a> instead.
               </p>
             </form>
           </FadeIn>

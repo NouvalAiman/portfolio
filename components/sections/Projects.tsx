@@ -54,7 +54,7 @@ export function Projects() {
         </FadeIn>
 
         <FadeIn delay={0.2} direction="up">
-          <StaggerContainer staggerDelay={0.1} direction="up">
+          <StaggerContainer staggerDelay={0.1} direction="up" className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
             {allProjects.map((project, index) => (
               <motion.article
                 key={project.id}
@@ -202,8 +202,8 @@ export function Projects() {
                 </div>
               </motion.article>
             ))}
-          </StaggerContainer>
-        </FadeIn>
+</StaggerContainer>
+          </FadeIn>
 
         <FadeIn delay={0.4} direction="up" className="mt-12 text-center">
           <motion.a
