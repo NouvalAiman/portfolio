@@ -1,13 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Terminal, AlertCircle, CheckCircle, Loader2, X } from "lucide-react";
+
+type ContactFormState = {
+  success: boolean;
+  message: string;
+  errors?: Record<string, string[]>;
+};
+import { Send, Terminal, AlertCircle, CheckCircle, X, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
-
-type FormStatus = "idle" | "submitting" | "success" | "error";
+import { sendEmail } from "@/lib/actions/contact";
 
 function getContactIcon(icon: string) {
   switch (icon) {
@@ -44,49 +49,43 @@ const fields = [
   { name: "message", label: "MESSAGE", type: "textarea", placeholder: "Tell me about your project, idea, or just say hi...", required: true },
 ];
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <motion.button
+      type="submit"
+      disabled={pending}
+      className="w-full mt-8 flex items-center justify-center gap-3 px-6 py-4 bg-primary text-background font-heading font-semibold text-base rounded-lg overflow-hidden glow-primary hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      whileHover={{ scale: 1.01, boxShadow: "0 0 40px rgba(0, 229, 255, 0.5)" }}
+      whileTap={{ scale: 0.99 }}
+    >
+      <span className="relative flex items-center gap-2 z-10">
+        {pending ? (
+          <>
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Sending...
+          </>
+        ) : (
+          <>
+            Send Message
+            <Send className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </>
+        )}
+      </span>
+      <motion.span
+        className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      />
+    </motion.button>
+  );
+}
+
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
+  const [formState, formAction] = useFormState<ContactFormState, FormData>(sendEmail, {
+    success: false,
     message: "",
+    errors: {},
   });
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("submitting");
-    setErrorMessage("");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch {
-      setStatus("error");
-      setErrorMessage("Failed to send message. Please try again or email directly.");
-    }
-  };
-
-  const resetForm = () => {
-    setStatus("idle");
-    setErrorMessage("");
-  };
 
   return (
     <section
@@ -196,7 +195,7 @@ export function Contact() {
           </FadeIn>
 
           <FadeIn delay={0.3} direction="right">
-            <form onSubmit={handleSubmit} className="glass-hover p-6 lg:p-8 rounded-xl" noValidate>
+            <form action={formAction} className="glass-hover p-6 lg:p-8 rounded-xl" noValidate>
               <div className="mb-4 flex items-center gap-2 text-xs text-muted font-mono">
                 <span className="text-primary">$</span>
                 <span>contact_form --submit</span>
@@ -204,7 +203,7 @@ export function Contact() {
               </div>
 
               <AnimatePresence mode="wait">
-                {status === "success" && (
+                {formState.success && (
                   <motion.div
                     key="success"
                     className="mb-6 p-4 glass border border-green-500/30 rounded-lg bg-green-500/5 flex items-center gap-3 animate-fade-in"
@@ -218,7 +217,8 @@ export function Contact() {
                       <p className="text-sm text-muted">I&apos;ll get back to you within 24 hours.</p>
                     </div>
                     <motion.button
-                      onClick={resetForm}
+                      type="button"
+                      onClick={() => window.location.reload()}
                       className="ml-auto p-1 text-muted hover:text-foreground transition-colors"
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
@@ -229,7 +229,7 @@ export function Contact() {
                   </motion.div>
                 )}
 
-                {status === "error" && (
+                {!formState.success && formState.message && (
                   <motion.div
                     key="error"
                     className="mb-6 p-4 glass border border-red-500/30 rounded-lg bg-red-500/5 flex items-center gap-3 animate-fade-in"
@@ -240,17 +240,24 @@ export function Contact() {
                     <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-red-500">Failed to send message</p>
-                      <p className="text-sm text-muted">{errorMessage}</p>
+                      <p className="text-sm text-muted">{formState.message}</p>
                     </div>
-                    <motion.button
-                      onClick={resetForm}
-                      className="ml-auto p-1 text-muted hover:text-foreground transition-colors"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      aria-label="Close error message"
-                    >
-                      <X className="w-5 h-5" />
-                    </motion.button>
+                  </motion.div>
+                )}
+
+                {formState.errors && (
+                  <motion.div
+                    key="validation"
+                    className="mb-6 p-4 glass border border-yellow-500/30 rounded-lg bg-yellow-500/5 flex items-center gap-3 animate-fade-in"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-yellow-500">Validation failed</p>
+                      <p className="text-sm text-muted">Please check the highlighted fields below.</p>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -272,61 +279,44 @@ export function Contact() {
                       <textarea
                         id={field.name}
                         name={field.name}
-                        value={formData[field.name as keyof typeof formData]}
-                        onChange={handleChange}
                         required={field.required}
                         placeholder={field.placeholder}
                         rows={6}
                         className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
+                        aria-invalid={formState.errors?.[field.name] ? "true" : "false"}
+                        aria-describedby={formState.errors?.[field.name] ? `${field.name}-error` : undefined}
                       />
                     ) : (
                       <input
                         id={field.name}
                         name={field.name}
                         type={field.type}
-                        value={formData[field.name as keyof typeof formData]}
-                        onChange={handleChange}
                         required={field.required}
                         placeholder={field.placeholder}
                         className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
+                        aria-invalid={formState.errors?.[field.name] ? "true" : "false"}
+                        aria-describedby={formState.errors?.[field.name] ? `${field.name}-error` : undefined}
                       />
                     )}
-                    <motion.div
-                      className="absolute bottom-0 left-0 h-0.5 bg-primary origin-left transition-transform duration-300"
-                      animate={{ scaleX: formData[field.name as keyof typeof formData] ? 1 : 0 }}
-                    />
+                    {formState.errors?.[field.name] && (
+                      <motion.p
+                        id={`${field.name}-error`}
+                        className="mt-1.5 text-sm text-red-500 font-mono"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        {formState.errors[field.name][0]}
+                      </motion.p>
+                    )}
                   </motion.div>
                 ))}
               </StaggerContainer>
 
-              <motion.button
-                type="submit"
-                disabled={status === "submitting"}
-                className="w-full mt-8 flex items-center justify-center gap-3 px-6 py-4 bg-primary text-background font-heading font-semibold text-base rounded-lg overflow-hidden glow-primary hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={{ scale: 1.01, boxShadow: "0 0 40px rgba(0, 229, 255, 0.5)" }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <span className="relative flex items-center gap-2 z-10">
-                  {status === "submitting" ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </>
-                  )}
-                </span>
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </motion.button>
+              <SubmitButton />
 
               <p className="text-center text-xs text-muted font-mono mt-4">
                 No backend? <a href="mailto:nouvalaiman51@gmail.com" className="text-primary hover:underline">Email directly</a> instead.

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { navItems } from "@/data/portfolio";
 
 export function Navbar() {
@@ -63,32 +64,32 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                className={`relative px-2 py-2 text-sm font-medium transition-colors ${
-                  activeSection === item.href.replace("#", "") ? "text-primary" : "text-muted hover:text-foreground"
-                }`}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * (index + 1), duration: 0.3 }}
-              >
-                {item.label}
-                <AnimatePresence mode="wait">
-                  {activeSection === item.href.replace("#", "") && (
-                    <motion.div
-                      key="indicator"
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary glow-primary"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
-                  )}
-                </AnimatePresence>
-              </motion.a>
+              <Link key={item.href} href={item.href}>
+                <motion.span
+                  className={`inline-block relative px-2 py-2 text-sm font-medium transition-colors ${
+                    activeSection === item.href.replace("#", "").replace("/", "") ? "text-primary" : "text-muted hover:text-foreground"
+                  }`}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * (index + 1), duration: 0.3 }}
+                >
+                  {item.label}
+                  <AnimatePresence mode="wait">
+                    {activeSection === item.href.replace("#", "").replace("/", "") && (
+                      <motion.div
+                        key="indicator"
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary glow-primary"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                  </AnimatePresence>
+                </motion.span>
+              </Link>
             ))}
           </div>
 
@@ -162,23 +163,22 @@ export function Navbar() {
 
             <nav className="flex-1 flex flex-col gap-6">
               {navItems.map((item, index) => (
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-4 py-3 text-lg font-medium rounded-lg transition-all ${
-                    activeSection === item.href.replace("#", "")
-                      ? "bg-primary/10 text-primary border border-primary/30"
-                      : "text-muted hover:text-foreground hover:bg-white/5"
-                  }`}
-                  whileHover={{ x: 8 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * (index + 1), duration: 0.3 }}
-                >
-                  {item.label}
-                </motion.a>
+                <Link key={item.href} href={item.href}>
+                  <motion.span
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`inline-block px-4 py-3 text-lg font-medium rounded-lg transition-all ${
+                      activeSection === item.href.replace("#", "").replace("/", "") ? "bg-primary/10 text-primary border border-primary/30"
+                        : "text-muted hover:text-foreground hover:bg-white/5"
+                    }`}
+                    whileHover={{ x: 8 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * (index + 1), duration: 0.3 }}
+                  >
+                    {item.label}
+                  </motion.span>
+                </Link>
               ))}
               <motion.a
                 href="/services"

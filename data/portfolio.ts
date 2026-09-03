@@ -14,10 +14,10 @@ export const siteConfig: SiteConfig = {
     { platform: "Email", url: "mailto:nouvalaiman51@gmail.com", icon: "mail" },
   ],
   navItems: [
-    { label: "Work", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Experience", href: "#experience" },
-    { label: "Contact", href: "#contact" },
+    { label: "Work", href: "/#projects" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Contact", href: "/#contact" },
   ],
 };
 
