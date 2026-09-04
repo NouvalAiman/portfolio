@@ -44,7 +44,7 @@ export const projects: Project[] = [
     image: "/projects/aether-analytics.png",
     tags: ["Analytics", "Real-time", "Dashboard", "Microservices"],
     techStack: ["React", "Next.js", "Go", "ClickHouse", "WebSocket", "gRPC", "Kubernetes", "Prometheus", "Grafana"],
-    githubUrl: "https://github.com/NouvalAiman/aether-analytics",
+    githubUrl: "https://github.com/ lAiman/aether-analytics",
     featured: true,
     category: "web",
     year: 2023,

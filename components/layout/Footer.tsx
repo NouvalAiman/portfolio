@@ -104,6 +104,7 @@ export function Footer() {
             <h3 className="font-heading font-semibold text-foreground mb-4">Tech Stack</h3>
             <div className="flex flex-wrap gap-2">
               {[
+                "Laravel",
                 "Next.js",
                 "React",
                 "TypeScript",
