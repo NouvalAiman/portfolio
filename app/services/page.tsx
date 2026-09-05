@@ -8,21 +8,21 @@ const tiers = [
   {
     name: "Starter",
     price: "Mulai dari Rp 480.000",
-    description: "Landing page sederhana untuk personal brand atau bisnis kecil.",
+    description: "Landing page super cepat untuk personal branding atau bisnis kecil (100% Next.js, tanpa database).",
     features: [
-      "Desain responsive 1 halaman",
-      "Optimasi SEO dasar",
-      "Form kontak fungsional",
-      "Integrasi Google Analytics",
-      "3x revisi desain",
-      "Hosting Vercel/Netlify + domain 1 tahun",
+      "Desain responsif 1 Halaman",
+      "Performa sangat cepat & SEO Friendly",
+      "Tombol Direct CTA terhubung ke WhatsApp",
+      "Hosting gratis & cepat via Vercel Netlify",
+      "Maksimal 1x revisi minor (teks & gambar)",
+      "Gratis subdomain / Domain lokal (.my.id) 1 tahun",
     ],
     limitations: [
-      "Multi-page (Home, About, Services, Blog, Contact)",
-      "CMS headless (Contentful/Sanity) untuk kelola konten",
-      "Tidak ada integrasi API eksternal",
-      "Optimasi SEO lanjutan (Schema, Sitemap, Meta)",
-      "VPS hosting",
+      "Tidak ada Dashboard Admin / CMS",
+      "Tidak menggunakan Laravel & Database",
+      "Tidak ada fitur multi-page (hanya 1 halaman)",
+      "Perubahan konten selanjutnya dikenakan biaya",
+      "Contact Form to Email Integration",
     ],
     ctaText: "Pilih Starter",
     popular: false,
@@ -30,24 +30,22 @@ const tiers = [
   },
   {
     name: "Professional",
-    price: "Mulai dari Rp 2.800.000",
-    description: "Website company profile dinamis dengan CMS dan fitur lengkap.",
+    price: "Mulai dari Rp 2.900.000",
+    description: "Website Company Profile dinamis. Laravel bertindak sebagai Headless CMS, Next.js sebagai Frontend.",
     features: [
-      "Multi-page (Home, About, Services, Blog, Contact)",
-      "CMS headless (Contentful/Sanity) untuk kelola konten",
-      "Blog system dengan kategori & tag",
-      "Optimasi SEO lanjutan (Schema, Sitemap, Meta)",
-      "Integrasi WhatsApp & Social Media",
-      "Animasi & micro-interactions",
-      "5x revisi desain",
-      "Support priority email + WhatsApp (30 hari)",
-      "Maksimal 10 Page",
-      "VPS hosting",
+      "Multi-page Website (Maks 7 halaman)",
+      "Custom CMS berbasis Laravel yang aman",
+      "Database MySQL terstruktur",
+      "Kecepatan tinggi (Next.js fetch API ke Laravel)",
+      "Optimasi SEO Lanjutan (Meta Tags dinamis)",
+      "Hosting Frontend Vercel + Backend Cloud Hosting 1 tahun",
+      "Maksimal 3x revisi minor UI",
+      "Contact Form to Email Integration",
     ],
     limitations: [
-      "Tidak ada fitur e-commerce/transaksi",
-      "Tidak ada user dashboard/login",
-      "Custom API integration biaya terpisah",
+      "Tidak ada fitur transaksi / e-commerce",
+      "Tidak ada fitur login untuk User umum",
+      "Belum termasuk domain premium (.com/.id)",
     ],
     ctaText: "Pilih Professional",
     popular: true,
@@ -55,25 +53,25 @@ const tiers = [
   },
   {
     name: "Enterprise",
-    price: "Mulai dari Rp 4.900.000",
-    description: "Web application kompleks: E-commerce, Dashboard, web School, atau Platform custom.",
+    price: "Mulai dari Rp 4.700.000",
+    description: "Sistem Informasi Manajemen Dasar & Web App Custom Ringan (Next.js + Laravel API).",
     features: [
-      "Arsitektur scalable (Laravel/next.js)",
-      "Dashboard admin dengan CRUD, chart & analytics (Filament)",
-      "Authentication (NextAuth/Clerk) + RBAC",
-      "API documentation (Swagger/OpenAPI)",
-      "CI/CD pipeline (GitHub Actions + Docker)",
-      "Monitoring (Sentry + LogRocket)",
-      "Database MySQL",
-      "25 Page maksimal & fitur custom",
-      "Hosting VPS + Domain 1 tahun",
-      "Support dedicated Slack/Email (90 hari)",
-      "Dokumentasi teknis lengkap",
-      "Contact Form to Email Integration"
+      "Web App Custom (Absensi, Portal Sekolah, dll)",
+      "Dashboard Admin Profesional (Filament/Nova)",
+      "Sistem Autentikasi & Multi-Role (RBAC)",
+      "Fitur Export Laporan Dasar (PDF/Excel)",
+      "Maksimal 13 Halaman / Modul fungsional",
+      "Integrasi API Standar (WA Gateway / G-Maps)",
+      "Hosting VPS Entry-Level + Vercel & Domain 1 tahun",
+      "Garansi Bug & Support Prioritas 30 Hari",
+      "Contact Form to Email Integration",
     ],
     limitations: [
-
-        ],
+      "Tidak ada payment gateway otomatis",
+      "Tidak termasuk integrasi hardware (RFID/Fingerprint)",
+      "Bukan aplikasi ERP skala besar (Fokus MVP)",
+      "Perubahan alur bisnis drastis dikenakan biaya tambahan",
+    ],
     ctaText: "Konsultasi Enterprise",
     popular: false,
     color: "primary",
@@ -89,21 +87,16 @@ export default function ServicesPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn delay={0.1} direction="up" className="text-center mb-16">
-            <motion.span
-              className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-6"
-            >
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span>Our Services</span>
-            </motion.span>
+  
             <h1 id="services-heading" className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-foreground mb-4">
               Elevate Your <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Digital Presence </span>
             </h1>
             <p className="text-muted max-w-2xl mx-auto text-lg">
-              Transparent pricing, no hidden fees. Choose the tier that fits your vision — we&apos;ll handle the technical complexity.
+              Transparent pricing, no hidden fees. Choose the tier that fits your vision — we'll handle the technical complexity.
             </p>
           </FadeIn>
 
-          <FadeIn delay={0.2} direction="up">
+          <FadeIn delay={0.2} direction="up" >
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full max-w-7xl mx-auto relative z-10">
               {tiers.map((tier, index) => (
                 <motion.article
@@ -233,7 +226,9 @@ export default function ServicesPage() {
                   Setiap bisnis unik. Jika butuh kombinasi fitur khusus, integrasi legacy system, atau arsitektur khusus — mari diskusikan.
                 </p>
                 <motion.a
-                  href="/#contact"
+                  href="https://wa.me/6288213842912?text=Halo%20Nouval,%20saya%20tertarik%20untuk%20diskusi%20mengenai%20pembuatan%20proyek%20website%20custom"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                   whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 229, 255, 0.3)" }}
                   whileTap={{ scale: 0.98 }}
@@ -243,8 +238,8 @@ export default function ServicesPage() {
                 </motion.a>
               </div>
             </FadeIn>
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
+    </main>
   );
 }

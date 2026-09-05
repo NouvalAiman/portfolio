@@ -16,7 +16,7 @@ export interface Project {
 export interface Skill {
   id: string;
   name: string;
-  category: "frontend" | "backend" | "devops" | "database" | "tooling" | "soft";
+  category: "frontend" | "backend" | "devops" | "database" | "tooling" | "deployment" | "soft";
   proficiency: number;
   icon?: string;
   color?: string;

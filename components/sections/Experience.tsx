@@ -28,12 +28,7 @@ export function Experience() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1} direction="up" className="text-center mb-16">
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-6"
-          >
-            <Briefcase className="w-4 h-4 text-primary" />
-            <span>Experience</span>
-          </motion.span>
+          
           <h2
             id="experience-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-foreground"

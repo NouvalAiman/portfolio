@@ -106,21 +106,28 @@ export const projects: Project[] = [
 ];
 
 export const skills: Skill[] = [
-  { id: "1", name: "TypeScript", category: "frontend", proficiency: 95, color: "#3178C6" },
-  { id: "2", name: "React / Next.js", category: "frontend", proficiency: 95, color: "#61DAFB" },
-  { id: "3", name: "Tailwind CSS", category: "frontend", proficiency: 90, color: "#06B6D4" },
-  { id: "4", name: "Go", category: "backend", proficiency: 85, color: "#00ADD8" },
-  { id: "5", name: "Node.js / tRPC", category: "backend", proficiency: 90, color: "#339933" },
-  { id: "6", name: "PostgreSQL / Prisma", category: "database", proficiency: 88, color: "#4169E1" },
-  { id: "7", name: "Redis / ClickHouse", category: "database", proficiency: 82, color: "#DC382D" },
-  { id: "8", name: "Kubernetes / Docker", category: "devops", proficiency: 85, color: "#326CE5" },
-  { id: "9", name: "AWS / GCP / Vercel", category: "devops", proficiency: 80, color: "#FF9900" },
-  { id: "10", name: "CI/CD (GitHub Actions, GitLab)", category: "devops", proficiency: 88, color: "#2088FF" },
-  { id: "11", name: "GraphQL / REST / gRPC", category: "backend", proficiency: 85, color: "#E10098" },
-  { id: "12", name: "Testing (Vitest, Playwright)", category: "tooling", proficiency: 82, color: "#6E9F18" },
-  { id: "13", name: "System Design / Architecture", category: "soft", proficiency: 90 },
-  { id: "14", name: "Technical Leadership", category: "soft", proficiency: 85 },
-  { id: "15", name: "Mentoring / Code Review", category: "soft", proficiency: 88 },
+  // Frontend
+  { id: "1", name: "Next.js / React", category: "frontend", proficiency: 95, color: "#61DAFB" },
+  { id: "2", name: "Tailwind CSS", category: "frontend", proficiency: 90, color: "#06B6D4" },
+  { id: "3", name: "JavaScript / TypeScript", category: "frontend", proficiency: 85, color: "#3178C6" },
+
+  // Backend
+  { id: "4", name: "Laravel / PHP", category: "backend", proficiency: 95, color: "#F55247" },
+  { id: "5", name: "RESTful APIs & JSON", category: "backend", proficiency: 90, color: "#E10098" },
+  { id: "6", name: "Next.js Server Actions", category: "backend", proficiency: 80, color: "#61DAFB" },
+
+  // Database
+  { id: "7", name: "MySQL / MariaDB", category: "database", proficiency: 95, color: "#4479A1" },
+  { id: "8", name: "PostgreSQL", category: "database", proficiency: 85, color: "#4169E1" },
+
+  // Deployment & Tools
+  { id: "9", name: "Git / GitHub", category: "deployment", proficiency: 90, color: "#F05032" },
+  { id: "10", name: "Vercel / Shared Hosting / VPS", category: "deployment", proficiency: 85, color: "#000000" },
+
+  // Soft Skills
+  { id: "11", name: "Problem Solving & Debugging", category: "soft", proficiency: 90 },
+  { id: "12", name: "Client Communication", category: "soft", proficiency: 88 },
+  { id: "13", name: "Time Management & Delivery", category: "soft", proficiency: 90 },
 ];
 
 export const experiences: Experience[] = [

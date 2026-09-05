@@ -1,35 +1,68 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Zap, Shield, Database, Globe, Layers } from "lucide-react";
+import { Terminal, Zap, Shield, Database, Globe, Layers, Code, Server, Zap as ZapIcon } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
 
 const keyTerms = [
-  { term: "SSR", desc: "Server-Side Rendering for SEO & performance" },
-  { term: "RSC", desc: "React Server Components for zero-bundle JS" },
-  { term: "Clean Architecture", desc: "Separation of concerns, testable code" },
-  { term: "Type-Safe APIs", desc: "End-to-end type safety with tRPC" },
-  { term: "Edge Runtime", desc: "Sub-100ms latency globally" },
-  { term: "Observability", desc: "Metrics, traces, logs built-in" },
+  { term: "Next.js", desc: "Modern React framework with App Router" },
+  { term: "Laravel", desc: "Robust PHP framework for backend" },
+  { term: "Tailwind CSS", desc: "Utility-first CSS framework" },
+  { term: "RESTful API", desc: "Standardized API communication" },
+  { term: "MySQL", desc: "Relational database management" },
 ];
 
 const highlights = [
-  { icon: Zap, title: "Performance First", desc: "Optimizing Core Web Vitals, bundle size, and runtime performance at every layer." },
-  { icon: Shield, title: "Type Safety", desc: "End-to-end TypeScript with strict mode, Zod validation, and generated types." },
-  { icon: Database, title: "Data Modeling", desc: "PostgreSQL with Prisma, Redis caching, ClickHouse for analytics." },
-  { icon: Globe, title: "Global Scale", desc: "Edge deployment, CDN caching, and multi-region database replication." },
-  { icon: Layers, title: "Architecture", desc: "Modular monoliths, microservices when needed, clean domain boundaries." },
-  { icon: Terminal, title: "Developer Experience", desc: "Great tooling, fast feedback loops, and automated quality gates." },
+  { 
+    icon: ZapIcon, 
+    title: "Performance & UI", 
+    desc: "Building fast, mobile-first, and highly responsive interfaces using Tailwind CSS and Next.js." 
+  },
+  { 
+    icon: Code, 
+    title: "Clean Code", 
+    desc: "Writing maintainable and readable code following standard development practices." 
+  },
+  { 
+    icon: Database, 
+    title: "Data Management", 
+    desc: "Designing solid relational databases using MySQL and Laravel Eloquent ORM." 
+  },
+  { 
+    icon: Server, 
+    title: "API Integration", 
+    desc: "Connecting frontends and backends seamlessly via RESTful APIs and JSON." 
+  },
+  { 
+    icon: Layers, 
+    title: "MVC Architecture", 
+    desc: "Structuring applications cleanly separating logic, data, and presentation using Laravel." 
+  },
+  { 
+    icon: Zap, 
+    title: "Continuous Learning", 
+    desc: "Always exploring new tools, libraries, and best practices to improve my craft." 
+  },
 ];
 
 const focusItems = [
-  { label: "Next.js 15 / React 19", desc: "App Router, Server Actions, PPR" },
-  { label: "Go Microservices", desc: "gRPC, NATS, Kubernetes" },
-  { label: "AI Integration", desc: "Vercel AI SDK, RAG pipelines" },
-  { label: "Developer Tooling", desc: "CLI tools, generators, plugins" },
-  { label: "Design Systems", desc: "Tokens, components, Storybook" },
-  { label: "Open Source", desc: "Contributing & maintaining" },
+  { 
+    label: "Next.js & React", 
+    desc: "Mastering App Router, Server Actions, and component reusability." 
+  },
+  { 
+    label: "Laravel Ecosystem", 
+    desc: "Deep diving into API development, Eloquent relationships, and Filament for admin panels." 
+  },
+  { 
+    label: "Web Performance", 
+    desc: "Learning how to optimize loading times, images, and Core Web Vitals." 
+  },
+  { 
+    label: "UI/UX Fundamentals", 
+    desc: "Improving my design sense to build more intuitive and accessible user experiences." 
+  },
 ];
 
 export function About() {
@@ -54,7 +87,7 @@ export function About() {
             id="about-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-foreground"
           >
-            Building <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> robust systems </span> that scale
+            Building <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> reliable web applications </span>
           </h2>
         </FadeIn>
 
@@ -62,16 +95,11 @@ export function About() {
           <FadeIn delay={0.2} direction="left">
             <div className="space-y-6">
               <p className="text-lg text-muted leading-relaxed">
-                I am a Full Stack Engineer with 3+ years of experience building production-grade
-                web applications. My focus is on creating maintainable, performant systems that
-                solve real problems for users and developers alike.
+                I am a Full Stack Developer passionate about building clean, responsive, and user-friendly web applications. My focus is on creating functional systems that solve real problems.
               </p>
 
               <p className="text-lg text-muted leading-relaxed">
-                Currently exploring the intersection of <span className="text-foreground font-mono">React Server Components</span>,
-                <span className="text-foreground font-mono">Edge Computing</span>, and
-                <span className="text-foreground font-mono">Developer Experience</span>.
-                Previously at Vercel (Next.js Commerce) and Stripe (Connect Dashboard).
+                Currently focusing on the intersection of modern frontend frameworks like Next.js and robust backend architectures with Laravel. I enjoy bridging the gap between visually appealing interfaces and solid database logic.
               </p>
 
               <div className="flex flex-wrap gap-2">

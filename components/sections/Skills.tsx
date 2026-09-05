@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Zap, Brain, Heart, Users, Globe } from "lucide-react";
+import { Terminal, Zap, Database, Heart, Users, Globe, FolderGit2, Server, Brain } from "lucide-react";
 import { skills } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
@@ -9,21 +9,19 @@ import { StaggerContainer } from "@/components/ui/StaggerContainer";
 const techSkills = skills.filter((s) => s.category !== "soft");
 const softSkills = skills.filter((s) => s.category === "soft");
 
-const categoryOrder = ["frontend", "backend", "database", "devops", "tooling"];
+const categoryOrder = ["frontend", "backend", "database", "deployment"];
 const categoryLabels: Record<string, { label: string; icon: React.ReactNode }> = {
   frontend: { label: "Frontend", icon: <Terminal className="w-4 h-4" /> },
   backend: { label: "Backend", icon: <Zap className="w-4 h-4" /> },
-  database: { label: "Database", icon: <Brain className="w-4 h-4" /> },
-  devops: { label: "DevOps", icon: <Globe className="w-4 h-4" /> },
-  tooling: { label: "Tooling", icon: <Users className="w-4 h-4" /> },
+  database: { label: "Database", icon: <Database className="w-4 h-4" /> },
+  deployment: { label: "Deployment & Tools", icon: <Server className="w-4 h-4" /> },
 };
 
 const learningItems = [
-  "Rust",
-  "WebAssembly",
-  "eBPF",
-  "Distributed Systems",
-  "ML Ops",
+  "TALL Stack (Tailwind, Alpine, Laravel, Livewire)",
+  "Web Performance",
+  "UI/UX Trends",
+  "System Architecture",
 ];
 
 export function Skills() {
@@ -38,12 +36,7 @@ export function Skills() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1} direction="up" className="text-center mb-16">
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-6"
-          >
-            <Terminal className="w-4 h-4 text-primary" />
-            <span>Skills & Expertise</span>
-          </motion.span>
+          
           <h2
             id="skills-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-foreground"
@@ -128,7 +121,8 @@ export function Skills() {
                       {[...Array(5)].map((_, i) => (
                         <motion.span
                           key={i}
-                          className={`w-1.5 h-1.5 rounded transition-colors ${
+                          className={`w-1.Selected Work
+Featured Projects5 h-1.5 rounded transition-colors ${
                             i < skill.proficiency / 20 ? "bg-primary" : "bg-border/30"
                           }`}
                           animate={{ scale: i < skill.proficiency / 20 ? [1, 1.2, 1] : 1 }}
