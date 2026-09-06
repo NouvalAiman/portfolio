@@ -1,11 +1,32 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { ExternalLink, ArrowUpRight, Code, Database, Globe, Zap, Shield, Terminal } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { projects } from "@/data/portfolio";
+import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+
+interface SanityImage {
+  _type: "image";
+  asset: {
+    _ref: string;
+    _type: "reference";
+  };
+  alt?: string;
+}
+
+interface Project {
+  _id: string;
+  _createdAt: string;
+  title: string;
+  description?: string;
+  mainImage?: SanityImage;
+  techStack?: string[];
+  githubLink?: string;
+  liveLink?: string;
+  category?: string;
+}
 
 const categoryIcons: Record<string, React.ReactNode> = {
   web: <Globe className="w-4 h-4" />,
@@ -23,10 +44,14 @@ const categoryLabels: Record<string, string> = {
   other: "Other",
 };
 
-export function Projects() {
-  const featuredProjects = projects.filter((p) => p.featured);
-  const otherProjects = projects.filter((p) => !p.featured);
-  const allProjects = [...featuredProjects, ...otherProjects];
+const query = `*[_type == "project"] | order(_createdAt desc)`;
+
+async function getProjects() {
+  return await client.fetch(query);
+}
+
+export default async function Projects() {
+  const projects = await getProjects();
 
   return (
     <section
@@ -49,9 +74,9 @@ export function Projects() {
 
         <FadeIn delay={0.2} direction="up">
           <StaggerContainer staggerDelay={0.1} direction="up" className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-            {allProjects.map((project, index) => (
+            {projects.map((project: Project, index: number) => (
               <motion.article
-                key={project.id}
+                key={project._id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -73,9 +98,9 @@ export function Projects() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 * index, duration: 0.4 }}
                       >
-                        {categoryIcons[project.category]}
+                        {project.category && categoryIcons[project.category]}
                         <p className="mt-2 font-mono text-xs text-muted uppercase tracking-wider">
-                          {categoryLabels[project.category]}
+                          {project.category && categoryLabels[project.category]}
                         </p>
                       </motion.div>
                     </div>
@@ -84,15 +109,16 @@ export function Projects() {
                       whileHover={{ scale: 1.05 }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                      {project.image && (
-                        <img
-                          src={project.image}
+                      {project.mainImage && (
+                        <Image
+                          src={urlFor(project.mainImage).width(800).url()}
                           alt={`${project.title} preview`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       )}
-                      {!project.image && (
+                      {!project.mainImage && (
                         <div className="w-full h-full bg-gradient-to-br from-primary/5 to-secondary/5" />
                       )}
                     </motion.div>
@@ -104,18 +130,8 @@ export function Projects() {
                         className="px-2 py-1 text-xs font-mono glass border-border/50 rounded transition-all group-hover:border-primary/50 group-hover:text-primary"
                         whileHover={{ scale: 1.05 }}
                       >
-                        {project.year}
+                        {project._createdAt ? new Date(project._createdAt).getFullYear() : "2024"}
                       </motion.span>
-                      {project.featured && (
-                        <motion.span
-                          className="px-2 py-1 text-xs font-mono bg-primary/10 text-primary border border-primary/30 rounded"
-                          initial={{ scale: 0.8 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: 0.3 * index, type: "spring" }}
-                        >
-                          Featured
-                        </motion.span>
-                      )}
                     </div>
 
                     <h3 className="font-heading text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -127,7 +143,7 @@ export function Projects() {
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.techStack.slice(0, 5).map((tech) => (
+                      {project.techStack?.slice(0, 5).map((tech: string) => (
                         <motion.span
                           key={tech}
                           className="px-2 py-1 text-xs font-mono glass border-border/50 rounded transition-all hover:border-primary/50 hover:text-primary"
@@ -136,7 +152,7 @@ export function Projects() {
                           {tech}
                         </motion.span>
                       ))}
-                      {project.techStack.length > 5 && (
+                      {project.techStack && project.techStack.length > 5 && (
                         <motion.span
                           className="px-2 py-1 text-xs font-mono glass border-border/50 rounded text-muted"
                           whileHover={{ scale: 1.05 }}
@@ -147,9 +163,9 @@ export function Projects() {
                     </div>
 
                     <div className="flex items-center gap-3 pt-4 border-t border-border/30">
-                      {project.githubUrl && (
+                      {project.githubLink && (
                         <motion.a
-                          href={project.githubUrl}
+                          href={project.githubLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -161,9 +177,9 @@ export function Projects() {
                           <span className="hidden sm:inline">Code</span>
                         </motion.a>
                       )}
-                      {project.liveUrl && (
+                      {project.liveLink && (
                         <motion.a
-                          href={project.liveUrl}
+                          href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -176,7 +192,7 @@ export function Projects() {
                         </motion.a>
                       )}
                       <motion.a
-                        href={`#project-${project.id}`}
+                        href={`#project-${project._id}`}
                         className="ml-auto flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
@@ -196,19 +212,17 @@ export function Projects() {
                 </div>
               </motion.article>
             ))}
-</StaggerContainer>
-          </FadeIn>
+          </StaggerContainer>
+        </FadeIn>
 
         <FadeIn delay={0.4} direction="up" className="mt-12 text-center">
-          <motion.a
+          <a
             href="#all-projects"
-            className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-            whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 229, 255, 0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all hover:scale-102 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] active:scale-98"
           >
             View All Projects
             <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </motion.a>
+          </a>
         </FadeIn>
       </div>
     </section>
