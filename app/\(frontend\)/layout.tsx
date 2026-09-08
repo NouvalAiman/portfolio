@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -66,7 +67,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default function FrontendLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -78,7 +79,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-foreground" suppressHydrationWarning>
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <Navbar />
+        <main className="flex-1" id="main-content">
+          {children}
+        </main>
       </body>
     </html>
   );

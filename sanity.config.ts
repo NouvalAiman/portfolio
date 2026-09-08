@@ -3,6 +3,7 @@ import { structureTool } from "sanity/structure";
 import { projectType } from "@/sanity/schemas/project";
 
 export default defineConfig({
+  basePath: "/studio", // 👈 TAMBAHKAN HANYA BARIS INI
   name: "portfolio",
   title: "Portfolio CMS",
 
