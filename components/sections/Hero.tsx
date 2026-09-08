@@ -46,16 +46,8 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-8"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <Terminal className="w-4 h-4 text-primary" />
-            <span>Full Stack Engineer</span>
-          </motion.span>
+        > 
+          
 
           <motion.h1
             className="text-5xl sm:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-6"
