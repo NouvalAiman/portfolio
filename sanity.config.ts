@@ -1,9 +1,10 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { projectType } from "@/sanity/schemas/project";
+import { experienceType } from "@/sanity/schemas/experience";
 
 export default defineConfig({
-  basePath: "/studio", // 👈 TAMBAHKAN HANYA BARIS INI
+  basePath: "/studio",
   name: "portfolio",
   title: "Portfolio CMS",
 
@@ -13,6 +14,6 @@ export default defineConfig({
   plugins: [structureTool()],
 
   schema: {
-    types: [projectType],
+    types: [projectType, experienceType],
   },
 });

@@ -1,222 +1,66 @@
-"use client";
+import { client } from '@/sanity/lib/client'
+import { groq } from 'next-sanity'
+// Kita import Kartu dan Garis interaktifnya dari satu file yang sama!
+import ExperienceCard, { ScrollLine } from '@/components/ui/ExperienceCard'
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Building2, Briefcase, CheckCircle, MapPin, Star } from "lucide-react";
-import { experiences } from "@/data/portfolio";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { StaggerContainer } from "@/components/ui/StaggerContainer";
-
-export function Experience() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start start", "end end"],
-  });
-
-  const lineProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+export default async function Experience() {
+  const query = groq`*[_type == "experience"] | order(dateRange desc)`
+  const experiences = await client.fetch(query)
 
   return (
-    <section
-      id="experience"
-      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
-      aria-labelledby="experience-heading"
-      ref={timelineRef}
-    >
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
-      <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn delay={0.1} direction="up" className="text-center mb-16">
-          
-          <h2
-            id="experience-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-foreground"
-          >
-            Professional <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Journey </span>
+    <section id="experience" className="py-20 relative">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-heading">
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Journey</span>
           </h2>
-        </FadeIn>
+        </div>
 
         <div className="relative">
-          {/* GARIS TIMELINE UTAMA */}
-          <motion.div
-            className="absolute left-1/3 lg:left-48 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{
-              background: "linear-gradient(to bottom, var(--border-subtle), var(--primary), var(--border-subtle))",
-            }}
-          >
-            <motion.div
-              className="absolute left-1/2 top-0 w-px h-full -translate-x-1/2 rounded-full"
-              style={{
-                background: "linear-gradient(to bottom, var(--primary), var(--secondary))",
-                boxShadow: "0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow)",
-                transformOrigin: "top center",
-                scaleY: lineProgress,
-              }}
-            />
-            <motion.div
-              className="absolute left-1/2 top-full w-3 h-3 -translate-x-1/2 rounded-full border-2"
-              style={{
-                borderColor: "var(--primary)",
-                background: "var(--background)",
-                boxShadow: "0 0 15px var(--primary-glow), 0 0 30px var(--primary-glow)",
-              }}
-              animate={{
-                translateY: [0, -8, 0],
-                boxShadow: [
-                  "0 0 15px var(--primary-glow)",
-                  "0 0 30px var(--primary-glow), 0 0 50px var(--secondary-glow)",
-                  "0 0 15px var(--primary-glow)",
-                ],
-              }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
+          {/* Panggil Garis Interaktifnya di sini */}
+          <ScrollLine />
 
-          <div className="relative space-y-16">
-            <FadeIn delay={0.2} direction="up">
-              <StaggerContainer staggerDelay={0.15} direction="up">
-                {experiences.map((exp, index) => (
-                  <motion.article
-                    key={exp.id}
-                    className="relative flex gap-8"
-                  >
-                    {/* BAGIAN KIRI (TANGGAL & TITIK NEON) */}
-                    <div className="relative flex-shrink-0 w-1/3 lg:w-48 text-right pr-8">
-                      {/* TITIK NEON KECIL */}
-                      <div className="absolute -right-2 top-4 w-4 h-4 rounded-full border-4 z-10 flex-shrink-0"
-                        style={{
-                          borderColor: "var(--primary)",
-                          background: "var(--background)",
-                          boxShadow: "0 0 0 4px var(--background), 0 0 15px var(--primary-glow)",
-                        }}
-                      >
-                        <motion.div
-                          className="w-full h-full rounded-full"
-                          style={{ background: "var(--primary)" }}
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                        />
-                      </div>
-                      <div className="mt-4 space-y-2">
-                        <p className="font-mono text-xs text-primary font-semibold">
-                          {exp.startDate} — {exp.endDate}
-                        </p>
-                        <p className="font-mono text-xs text-muted">{exp.location}</p>
-                        <motion.span
-                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono glass border-border/50 rounded"
-                          whileHover={{ scale: 1.05 }}
-                          style={{ backgroundColor: exp.type === "full-time" ? "rgba(0, 229, 255, 0.1)" : "rgba(176, 38, 255, 0.1)" }}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: exp.type === "full-time" ? "var(--primary)" : "var(--secondary)" }} />
-                          {exp.type}
-                        </motion.span>
-                      </div>
-                    </div>
+          <div className="space-y-12">
+            {experiences.map((exp: any) => (
+              <div key={exp._id} className="relative flex flex-col md:flex-row gap-8 items-start w-full">
+                
+                {/* Kolom Kiri: Tanggal (Aman, gak patah ke bawah) */}
+                <div className="md:w-[20%] flex flex-col md:items-end md:text-right md:pr-10 shrink-0 relative mt-2">
+                  <div className="absolute right-[-5px] top-1.5 w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_15px_#06b6d4] hidden md:block z-10" />
+                  
+                  <span className="text-cyan-400 font-mono font-bold text-sm whitespace-nowrap">{exp.dateRange}</span>
+                  <span className="text-gray-500 font-mono text-xs mt-1 mb-3">Remote</span>
+                  
+                  <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-300 w-fit md:ml-auto flex items-center gap-2 whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></span>
+                    {exp.workType}
+                  </span>
+                </div>
 
-                    {/* BAGIAN KANAN (KARTU KONTEN) */}
-                    <div className="flex-1 glass-hover p-6 lg:p-8 rounded-xl min-w-0">
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                          <h3 className="font-heading text-xl lg:text-2xl font-bold text-foreground mb-1">
-                            {exp.role}
-                          </h3>
-                          <p className="flex items-center gap-2 text-primary font-medium">
-                            <Building2 className="w-4 h-4" />
-                            {exp.company}
-                          </p>
-                        </div>
-                        {exp.highlights && exp.highlights.length > 0 && (
-                          <motion.div
-                            className="flex flex-col gap-1.5"
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                          >
-                            {exp.highlights.map((highlight) => (
-                              <motion.div
-                                key={highlight}
-                                className="flex items-center gap-2 px-3 py-1.5 glass border-border/50 rounded-lg text-xs text-primary"
-                                whileHover={{ x: 4 }}
-                              >
-                                <CheckCircle className="w-3 h-3 flex-shrink-0" />
-                                <span className="font-mono">{highlight}</span>
-                              </motion.div>
-                            ))}
-                          </motion.div>
-                        )}
-                      </div>
-
-                      <p className="text-muted leading-relaxed mb-6">
-                        {exp.description[0]}
-                      </p>
-
-                      {exp.description.length > 1 && (
-                        <motion.ul
-                          className="space-y-2 mb-6"
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.15 }}
-                        >
-                          {exp.description.slice(1).map((item, i) => (
-                            <motion.li
-                              key={i}
-                              className="flex items-start gap-2 text-sm text-muted"
-                              initial={{ opacity: 0, x: -10 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: i * 0.05 }}
-                            >
-                              <span className="font-mono text-primary text-lg leading-tight">{" >"}</span>
-                              <span>{item}</span>
-                            </motion.li>
-                          ))}
-                        </motion.ul>
-                      )}
-
-                      <StaggerContainer staggerDelay={0.05} direction="left">
-                        {exp.techStack.map((tech) => (
-                          <motion.span
-                            key={tech}
-                            className="px-2.5 py-1 text-xs font-mono glass border-border/50 rounded transition-all hover:border-primary/50 hover:text-primary hover:bg-primary/5"
-                            whileHover={{ scale: 1.05, y: -1 }}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </StaggerContainer>
-                    </div>
-                  </motion.article>
-                ))}
-              </StaggerContainer>
-            </FadeIn>
-
-            <FadeIn delay={0.5} direction="up" className="text-center py-8">
-              <motion.a
-                href="https://linkedin.com/in/nouval-aiman-a93321417"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 229, 255, 0.3)" }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <MapPin className="w-5 h-5" />
-                View Full Timeline on LinkedIn
-                <motion.span
-                  className="w-5 h-5 flex items-center justify-center"
-                  animate={{ rotate: [0, 15, -15, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <Star className="w-5 h-5 text-secondary" />
-                </motion.span>
-              </motion.a>
-            </FadeIn>
+                {/* Kolom Kanan: Card */}
+                <div className="md:w-[80%] w-full">
+                  <ExperienceCard experience={exp} />
+                </div>
+              </div>
+            ))}
           </div>
+        </div>
+
+        {/* Tombol LinkedIn (Udah balik!) */}
+        <div className="mt-16 flex justify-center">
+          <a 
+            href="https://linkedin.com/in/nouval-aiman" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-cyan-500/50 text-white font-mono text-sm transition-all group hover:bg-white/10"
+          >
+            <svg className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            View Full Timeline on LinkedIn
+            <svg className="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+          </a>
         </div>
       </div>
     </section>
-  );
+  )
 }

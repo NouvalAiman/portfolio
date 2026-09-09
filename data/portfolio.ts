@@ -133,62 +133,40 @@ export const skills: Skill[] = [
 export const experiences: Experience[] = [
   {
     id: "1",
-    role: "Senior Full Stack Engineer",
-    company: "Vercel",
-    location: "San Francisco, CA (Remote)",
-    startDate: "2023-03",
+    role: "Junior Full-Stack Developer",
+    company: "Freelance / Independent",
+    location: "Remote",
+    startDate: "2024-01",
     endDate: "Present",
     description: [
-      "Lead engineer for Next.js Commerce, maintaining the reference implementation for headless e-commerce.",
-      "Designed and implemented the App Router migration strategy for enterprise customers.",
-      "Built internal developer tooling improving build times by 40% using Turborepo and custom caching.",
-      "Mentored 5 engineers through onboarding and architecture reviews.",
+      "Building custom web applications and professional portfolios with a strong focus on clean code and performance.",
+      "Designed and developed highly responsive and interactive web portfolios using Next.js.",
+      "Built secure and scalable backend architectures using Laravel and MySQL for seamless data management."
     ],
-    techStack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Vercel Platform", "Turborepo"],
-    type: "full-time",
+    techStack: ["Next.js", "React", "TypeScript", "Laravel", "PHP", "MySQL", "Tailwind CSS", "Sanity CMS", "Git"],
+    type: "freelance",
     highlights: [
-      "Next.js Commerce v2 launch — 50k+ weekly downloads",
-      "Reduced cold start latency by 60% via Edge Middleware optimization",
+      "Designed and developed highly responsive and interactive web portfolios using Next.js.",
+      "Built secure and scalable backend architectures using Laravel and MySQL for seamless data management."
     ],
   },
   {
     id: "2",
-    role: "Full Stack Engineer",
-    company: "Stripe",
-    location: "Seattle, WA",
-    startDate: "2021-06",
-    endDate: "2023-02",
-    description: [
-      "Developed Dashboard features for Connect platform, serving 100k+ marketplaces.",
-      "Built real-time payout reconciliation system processing $10B+ annually.",
-      "Led migration from Ruby on Rails to React/TypeScript for Express Dashboard.",
-      "Implemented A/B testing framework for checkout conversion optimization.",
-    ],
-    techStack: ["React", "TypeScript", "Ruby", "Rails", "PostgreSQL", "Kafka", "GraphQL"],
-    type: "full-time",
-    highlights: [
-      "Express Dashboard v2 — 35% faster page loads",
-      "Payout reconciliation — zero data loss incidents in 18 months",
-    ],
-  },
-  {
-    id: "3",
-    role: "Software Engineer",
-    company: "Linear",
+    role: "Web Developer",
+    company: "SMK Miftahul Jannah",
     location: "Remote",
-    startDate: "2019-08",
-    endDate: "2021-05",
+    startDate: "2023-01",
+    endDate: "2024-12",
     description: [
-      "Built core issue tracking features: cycles, projects, roadmaps, and integrations.",
-      "Designed real-time sync engine using WebSockets and Operational Transforms.",
-      "Created public API and OAuth2 provider for third-party integrations.",
-      "Established testing culture: 90%+ coverage, visual regression testing.",
+      "Developed a functional digital platform for the school to improve information accessibility.",
+      "Engineered a responsive school website ensuring a seamless user experience across desktop and mobile devices.",
+      "Implemented secure database operations and interactive UI elements using modern web technologies."
     ],
-    techStack: ["React", "TypeScript", "GraphQL", "PostgreSQL", "Redis", "WebSocket", "Electron"],
+    techStack: ["Laravel", "PHP", "MySQL", "JavaScript", "HTML/CSS", "Tailwind CSS", "Git"],
     type: "full-time",
     highlights: [
-      "Real-time sync — sub-50ms latency globally",
-      "Linear API v1 — adopted by 200+ integrations",
+      "Engineered a responsive school website ensuring a seamless user experience across desktop and mobile devices.",
+      "Implemented secure database operations and interactive UI elements using modern web technologies."
     ],
   },
 ];
