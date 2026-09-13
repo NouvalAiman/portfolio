@@ -58,3 +58,16 @@ export interface SiteConfig {
   socialLinks: SocialLink[];
   navItems: NavItem[];
 }
+
+export interface Service {
+  _id: string;
+  title: string;
+  price: string;
+  description?: string;
+  pros?: string[];
+  cons?: string[];
+  isPopular?: boolean;
+  ctaText?: string;
+  ctaLink?: string;
+  order?: number;
+}

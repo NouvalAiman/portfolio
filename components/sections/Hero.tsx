@@ -125,7 +125,7 @@ export function Hero() {
             <div className="w-px h-6 bg-border/50" />
             <div className="flex items-center gap-2">
               <Terminal className="w-4 h-4 text-primary/70" />
-              <span>50+ Projects</span>
+              <span>20+ Projects</span>
             </div>
             <div className="w-px h-6 bg-border/50" />
             <div className="flex items-center gap-2">
