@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Zap, Database, Heart, Users, Globe, FolderGit2, Server, Brain } from "lucide-react";
+import { Terminal, Zap, Database, Heart, Server, Brain } from "lucide-react";
 import { skills } from "@/data/portfolio";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
@@ -100,30 +100,29 @@ export function Skills() {
               <Heart className="w-6 h-6 text-secondary" />
               <span>Soft Skills</span>
             </h3>
-            <div className="glass-hover p-6 rounded-xl">
+            <div className="glass-hover p-6 rounded-2xl">
               <StaggerContainer staggerDelay={0.08} direction="up">
                 {softSkills.map((skill) => (
                   <motion.div
                     key={skill.id}
-                    className="group flex items-center gap-4 p-3 glass border-border/50 rounded-lg transition-all hover:border-primary/50 hover:bg-primary/5"
+                    className="group flex items-center gap-4 p-3.5 glass border-border/50 rounded-xl transition-all hover:border-primary/50 hover:bg-primary/5"
                   >
                     <motion.span
-                      className="font-mono text-primary text-lg group-hover:scale-110 transition-transform"
+                      className="font-mono text-primary text-lg group-hover:scale-110 transition-transform font-bold"
                       whileHover={{ x: 4 }}
                     >
                       {" > "}
                     </motion.span>
                     <span className="font-medium text-foreground flex-1">{skill.name}</span>
                     <motion.div
-                      className="flex items-center gap-1 font-mono text-xs text-muted"
+                      className="flex items-center gap-1.5 font-mono text-xs text-muted"
                       whileHover={{ scale: 1.05 }}
                     >
                       {[...Array(5)].map((_, i) => (
                         <motion.span
                           key={i}
-                          className={`w-1.Selected Work
-Featured Projects5 h-1.5 rounded transition-colors ${
-                            i < skill.proficiency / 20 ? "bg-primary" : "bg-border/30"
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            i < skill.proficiency / 20 ? "bg-primary shadow-[0_0_8px_rgba(0,229,255,0.6)]" : "bg-border/40"
                           }`}
                           animate={{ scale: i < skill.proficiency / 20 ? [1, 1.2, 1] : 1 }}
                           transition={{ delay: i * 0.1, repeat: Infinity, duration: 1.5 }}
@@ -139,17 +138,17 @@ Featured Projects5 h-1.5 rounded transition-colors ${
                   <Brain className="w-5 h-5 text-secondary" />
                   Always Learning
                 </h4>
-                <StaggerContainer staggerDelay={0.05} direction="left">
+                <div className="flex flex-wrap gap-2">
                   {learningItems.map((item) => (
                     <motion.span
                       key={item}
-                      className="px-3 py-1.5 text-xs font-mono glass border-border/50 rounded transition-all hover:border-secondary/50 hover:bg-secondary/5 hover:text-secondary"
+                      className="px-3.5 py-1.5 text-xs font-mono glass border-border/50 rounded-full transition-all hover:border-secondary/50 hover:bg-secondary/5 hover:text-secondary hover:shadow-[0_0_15px_rgba(176,38,255,0.2)]"
                       whileHover={{ scale: 1.05, y: -2 }}
                     >
                       {item}
                     </motion.span>
                   ))}
-                </StaggerContainer>
+                </div>
               </FadeIn>
             </div>
           </FadeIn>

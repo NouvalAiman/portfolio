@@ -1,11 +1,10 @@
 import { client } from '@/sanity/lib/client'
 import { groq } from 'next-sanity'
-// Kita import Kartu dan Garis interaktifnya dari satu file yang sama!
-import ExperienceCard, { ScrollLine } from '@/components/ui/ExperienceCard'
+import ExperienceCard, { ScrollLine, ExperienceItem } from '@/components/ui/ExperienceCard'
 
 export default async function Experience() {
   const query = groq`*[_type == "experience"] | order(dateRange desc)`
-  const experiences = await client.fetch(query)
+  const experiences: ExperienceItem[] = await client.fetch(query)
 
   return (
     <section id="experience" className="py-20 relative">
@@ -22,7 +21,7 @@ export default async function Experience() {
           <ScrollLine />
 
           <div className="space-y-12">
-            {experiences.map((exp: any) => (
+            {experiences.map((exp) => (
               <div key={exp._id} className="relative flex flex-col md:flex-row gap-8 items-start w-full">
                 
                 {/* Kolom Kiri: Tanggal (Aman, gak patah ke bawah) */}

@@ -49,14 +49,14 @@ export function Footer() {
             <p className="text-muted text-sm leading-relaxed mb-6 max-w-xs">
               Building scalable web applications with modern technologies. Specialized in React, Next.js, TypeScript, and cloud-native architectures.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={link.platform}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg glass-hover text-muted hover:text-primary transition-colors"
+                  className="p-2.5 rounded-full glass border border-border/50 text-muted hover:text-primary hover:border-primary/50 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all"
                   aria-label={link.platform}
                   whileHover={{ scale: 1.15, y: -2 }}
                   whileTap={{ scale: 0.9 }}
@@ -79,10 +79,10 @@ export function Footer() {
             <h3 className="font-heading font-semibold text-foreground mb-4">Navigate</h3>
             <ul className="space-y-3">
               {[
-                { label: "Work", href: "#projects" },
-                { label: "Skills", href: "#skills" },
-                { label: "Experience", href: "#experience" },
-                { label: "Contact", href: "#contact" },
+                { label: "Work", href: "/#work" },
+                { label: "Skills", href: "/#skills" },
+                { label: "Experience", href: "/#experience" },
+                { label: "Contact", href: "/#contact" },
               ].map((item, index) => (
                 <motion.li key={item.label} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * (index + 1), duration: 0.3 }}>
 <a
@@ -116,7 +116,7 @@ export function Footer() {
               ].map((tech, index) => (
                 <motion.span
                   key={tech}
-                  className="px-3 py-1 text-xs font-mono glass border-border/50 text-muted hover:text-primary hover:border-primary/50 transition-all rounded"
+                  className="px-3.5 py-1 text-xs font-mono glass border-border/50 text-muted hover:text-primary hover:border-primary/50 transition-all rounded-full"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.05 * (index + 1), duration: 0.2 }}
@@ -163,7 +163,7 @@ export function Footer() {
 
             <div className="flex items-center gap-4">
               <motion.div
-                className="flex items-center gap-2 px-3 py-1.5 glass border-border/50 rounded-lg"
+                className="flex items-center gap-2 px-3.5 py-1.5 glass border-border/50 rounded-full"
                 animate={{
                   opacity: [1, 0.6, 1],
                   boxShadow: ["0 0 8px rgba(34, 197, 94, 0.3)", "0 0 20px rgba(34, 197, 94, 0.5)", "0 0 8px rgba(34, 197, 94, 0.3)"]

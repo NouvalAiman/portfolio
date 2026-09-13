@@ -96,15 +96,15 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <motion.a
               href="/services"
-              className="px-5 py-2 text-sm font-medium text-background bg-primary rounded-lg glow-primary hover:scale-105 hover:brightness-110 transition-all duration-200"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 229, 255, 0.5)" }}
+              className="px-6 py-2.5 text-sm font-heading font-semibold text-background bg-primary rounded-full glow-primary hover:scale-105 hover:brightness-110 transition-all duration-200"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0, 229, 255, 0.6)" }}
               whileTap={{ scale: 0.95 }}
             >
               Order Now
             </motion.a>
             <motion.button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-lg text-muted hover:text-foreground hover:bg-white/5 transition-colors"
+              className="md:hidden p-2.5 rounded-full text-muted hover:text-foreground hover:bg-white/5 transition-colors"
               aria-label="Open menu"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -152,7 +152,7 @@ export function Navbar() {
               </motion.a>
               <motion.button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-white/5 transition-colors"
+                className="p-2.5 rounded-full text-muted hover:text-foreground hover:bg-white/5 transition-colors"
                 aria-label="Close menu"
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
@@ -161,16 +161,16 @@ export function Navbar() {
               </motion.button>
             </div>
 
-            <nav className="flex-1 flex flex-col gap-6">
+            <nav className="flex-1 flex flex-col gap-4">
               {navItems.map((item, index) => (
                 <Link key={item.href} href={item.href}>
                   <motion.span
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`inline-block px-4 py-3 text-lg font-medium rounded-lg transition-all ${
+                    className={`inline-block w-full px-5 py-3 text-base font-medium rounded-full transition-all ${
                       activeSection === item.href.replace("#", "").replace("/", "") ? "bg-primary/10 text-primary border border-primary/30"
                         : "text-muted hover:text-foreground hover:bg-white/5"
                     }`}
-                    whileHover={{ x: 8 }}
+                    whileHover={{ x: 6 }}
                     whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -183,8 +183,8 @@ export function Navbar() {
               <motion.a
                 href="/services"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 px-5 py-3 text-center text-base font-medium text-background bg-primary rounded-lg glow-primary hover:brightness-110 transition-all"
-                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 229, 255, 0.5)" }}
+                className="mt-4 px-6 py-3.5 text-center text-base font-heading font-semibold text-background bg-primary rounded-full glow-primary hover:brightness-110 transition-all"
+                whileHover={{ scale: 1.02, boxShadow: "0 0 35px rgba(0, 229, 255, 0.6)" }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

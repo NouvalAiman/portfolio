@@ -20,18 +20,18 @@ export function ScrollLine() {
 }
 
 // 2. Komponen Kartu Utama
-type Experience = {
+export type ExperienceItem = {
   _id: string;
   role: string;
   company: string;
   dateRange: string;
   workType: string;
   description: string;
-  bulletPoints: string[];
-  techStack: string[];
-}
+  bulletPoints?: string[];
+  techStack?: string[];
+};
 
-export default function ExperienceCard({ experience }: { experience: Experience }) {
+export default function ExperienceCard({ experience }: { experience: ExperienceItem }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -68,7 +68,7 @@ export default function ExperienceCard({ experience }: { experience: Experience 
           {experience.techStack.map((tech, index) => (
             <span
               key={index}
-              className="px-3 py-1 text-xs font-mono text-gray-400 bg-white/5 border border-white/10 rounded-md hover:text-cyan-300 hover:border-cyan-500/30 transition-colors"
+              className="px-3 py-1 text-xs font-mono text-gray-400 bg-white/5 border border-white/10 rounded-full hover:text-cyan-300 hover:border-cyan-500/30 transition-colors"
             >
               {tech}
             </span>

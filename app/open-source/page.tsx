@@ -3,10 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Eye, Package, Terminal, Check, Clock, Zap, Heart, GitBranch } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
+import React from "react";
 
 const metrics = [
   { label: "Total Stars", value: "2.8k", change: "+12%", icon: Star, color: "primary" },
@@ -45,9 +44,7 @@ export default function OpenSourcePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <Navbar />
-      <main className="flex-1">
+    <main className="min-h-screen bg-background text-foreground">
         <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden" aria-labelledby="opensource-heading">
           <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
           <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
@@ -117,26 +114,26 @@ export default function OpenSourcePage() {
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-1">
-                            <code className="font-mono text-primary text-sm">{pkg.name}</code>
-                            <span className="px-2 py-0.5 text-xs font-mono glass border-border/50 rounded"
+                            <code className="font-mono text-primary text-sm font-semibold">{pkg.name}</code>
+                            <span className="px-2.5 py-0.5 text-xs font-mono glass border-border/50 rounded-full"
                               style={{ backgroundColor: pkg.name.includes("ui-core") || pkg.name.includes("form") || pkg.name.includes("cli") ? "rgba(0, 229, 255, 0.1)" : "rgba(176, 38, 255, 0.1)" }}
                             >
                               v{pkg.version}
                             </span>
-                            <span className="px-2 py-0.5 text-xs font-mono glass border-border/50 rounded text-muted">{pkg.license}</span>
+                            <span className="px-2.5 py-0.5 text-xs font-mono glass border-border/50 rounded-full text-muted">{pkg.license}</span>
                           </div>
                           <p className="text-sm text-muted">{pkg.desc}</p>
                           <div className="flex items-center gap-4 mt-2 text-xs text-muted font-mono">
                             <span className="flex items-center gap-1">
-                              <Terminal className="w-3 h-3" />
+                              <Terminal className="w-3 h-3 text-primary" />
                               {pkg.installs}
                             </span>
                           </div>
                         </div>
                         <motion.button
                           onClick={() => copyCommand(pkg.name)}
-                          className="flex items-center gap-2 px-4 py-2 glass border-border/50 rounded-lg text-sm font-mono text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                          whileHover={{ scale: 1.02 }}
+                          className="flex items-center gap-2 px-4 py-2 glass border-border/50 rounded-full text-sm font-mono text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+                          whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.98 }}
                           aria-label={`Copy npm install command for ${pkg.name}`}
                         >
@@ -223,7 +220,7 @@ export default function OpenSourcePage() {
                             {pr.labels.map((label) => (
                               <motion.span
                                 key={label}
-                                className="px-2 py-0.5 text-xs font-mono glass border-border/50 rounded hover:border-primary/50 hover:text-primary transition-colors"
+                                className="px-2.5 py-0.5 text-xs font-mono glass border-border/50 rounded-full hover:border-primary/50 hover:text-primary transition-colors"
                                 whileHover={{ scale: 1.05 }}
                               >
                                 {label}
@@ -243,8 +240,8 @@ export default function OpenSourcePage() {
                 href="https://github.com/nouval"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 229, 255, 0.3)" }}
+                className="inline-flex items-center gap-2 px-8 py-3.5 glass border-border/60 text-foreground font-heading font-semibold rounded-full hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)] transition-all"
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <FaGithub className="w-5 h-5" />
@@ -254,9 +251,5 @@ export default function OpenSourcePage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </div>
   );
 }
-
-import React from "react";

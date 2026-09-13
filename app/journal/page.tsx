@@ -3,10 +3,9 @@
 import { motion } from "framer-motion";
 import { FileText, Clock, ArrowRight, ExternalLink, ChevronRight, BookOpen } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
+import React from "react";
 
 const categories = [
   { slug: "engineering", label: "Engineering", color: "primary", count: 12 },
@@ -122,14 +121,12 @@ export default function JournalPage() {
     : posts.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <Navbar />
-      <main className="flex-1">
-        <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden" aria-labelledby="journal-heading">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "var(--scanline)" }} />
-          <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
-          <div className="absolute inset-0 opacity-5">
-            <pre className="text-primary/5 font-mono text-xs leading-relaxed p-8 select-none pointer-events-none" style={{ fontFamily: "var(--font-mono)" }}>
+    <main className="min-h-screen bg-background text-foreground">
+      <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden" aria-labelledby="journal-heading">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "var(--scanline)" }} />
+        <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
+        <div className="absolute inset-0 opacity-5">
+          <pre className="text-primary/5 font-mono text-xs leading-relaxed p-8 select-none pointer-events-none" style={{ fontFamily: "var(--font-mono)" }}>
 {`// Journal - Technical Notes
 const articles = [
   { title: "Type-Safe APIs", status: "published" },
@@ -143,72 +140,72 @@ articles.forEach(article => {
     deploy(article);
   }
 });`}
-            </pre>
-          </div>
+          </pre>
+        </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn delay={0.1} direction="up" className="mb-16">
-              <motion.span
-                className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-6"
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn delay={0.1} direction="up" className="mb-16">
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-1.5 glass border-border/50 rounded-full text-xs font-mono text-muted mb-6"
+            >
+              <BookOpen className="w-4 h-4 text-primary" />
+              <span>Journal</span>
+            </motion.span>
+            <h1 id="journal-heading" className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-foreground mb-4">
+              Technical <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Journal </span>
+            </h1>
+            <p className="text-muted max-w-2xl text-lg">
+              Deep dives into engineering, architecture, and the craft of building software.
+              {posts.length} articles and counting.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.2} direction="up">
+            <div className="flex flex-wrap gap-2.5 mb-12" role="tablist" aria-label="Filter by category">
+              <motion.button
+                onClick={() => setActiveCategory("all")}
+                className={`px-5 py-2 font-mono text-sm rounded-full border transition-all ${
+                  activeCategory === "all"
+                    ? "bg-primary text-background border-primary shadow-[0_0_15px_var(--primary-glow)] font-semibold"
+                    : "glass border-border/50 text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5"
+                }`}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                role="tab"
+                aria-selected={activeCategory === "all"}
+                aria-controls="posts-panel"
               >
-                <BookOpen className="w-4 h-4 text-primary" />
-                <span>Journal</span>
-              </motion.span>
-              <h1 id="journal-heading" className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-foreground mb-4">
-                Technical <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Journal </span>
-              </h1>
-              <p className="text-muted max-w-2xl text-lg">
-                Deep dives into engineering, architecture, and the craft of building software.
-                {posts.length} articles and counting.
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={0.2} direction="up">
-              <div className="flex flex-wrap gap-2 mb-12" role="tablist" aria-label="Filter by category">
+                All <span className="ml-1.5 px-2 py-0.5 text-xs font-mono glass border-border/50 rounded-full">{posts.length}</span>
+              </motion.button>
+              {categories.map((cat) => (
                 <motion.button
-                  onClick={() => setActiveCategory("all")}
-                  className={`px-4 py-2 font-mono text-sm rounded-lg border transition-all ${
-                    activeCategory === "all"
-                      ? "bg-primary text-background border-primary"
-                      : "glass border-border/50 text-muted hover:border-primary/50 hover:text-primary"
+                  key={cat.slug}
+                  onClick={() => setActiveCategory(cat.slug)}
+                  className={`px-5 py-2 font-mono text-sm rounded-full border transition-all ${
+                    activeCategory === cat.slug
+                      ? "bg-primary text-background border-primary shadow-[0_0_15px_var(--primary-glow)] font-semibold"
+                      : "glass border-border/50 text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5"
                   }`}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                   role="tab"
-                  aria-selected={activeCategory === "all"}
+                  aria-selected={activeCategory === cat.slug}
                   aria-controls="posts-panel"
                 >
-                  All <span className="ml-1 px-2 py-0.5 text-xs font-mono glass border-border/50 rounded">{posts.length}</span>
+                  {cat.label} <span className="ml-1.5 px-2 py-0.5 text-xs font-mono glass border-border/50 rounded-full">{cat.count}</span>
                 </motion.button>
-                {categories.map((cat) => (
-                  <motion.button
-                    key={cat.slug}
-                    onClick={() => setActiveCategory(cat.slug)}
-                    className={`px-4 py-2 font-mono text-sm rounded-lg border transition-all ${
-                      activeCategory === cat.slug
-                        ? `bg-${cat.color} text-background border-${cat.color}`
-                        : "glass border-border/50 text-muted hover:border-primary/50 hover:text-primary"
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    role="tab"
-                    aria-selected={activeCategory === cat.slug}
-                    aria-controls="posts-panel"
-                  >
-                    {cat.label} <span className="ml-1 px-2 py-0.5 text-xs font-mono glass border-border/50 rounded">{cat.count}</span>
-                  </motion.button>
-                ))}
-              </div>
-            </FadeIn>
+              ))}
+            </div>
+          </FadeIn>
 
-            <FadeIn delay={0.3} direction="up">
-              <div id="posts-panel" role="tabpanel" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <StaggerContainer staggerDelay={0.08} direction="up">
-                  {filteredPosts.map((post) => (
-                    <motion.article
-                      key={post.slug}
-                      className="glass-hover group flex flex-col h-full overflow-hidden"
-                    >
+          <FadeIn delay={0.3} direction="up">
+            <div id="posts-panel" role="tabpanel" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <StaggerContainer staggerDelay={0.08} direction="up">
+                {filteredPosts.map((post) => (
+                  <motion.article
+                    key={post.slug}
+                    className="glass-hover group flex flex-col h-full overflow-hidden rounded-2xl"
+                  >
                       <div className="relative aspect-video overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -264,8 +261,8 @@ articles.forEach(article => {
                           className="flex items-center justify-between pt-4 border-t border-border/30"
                         >
                           <motion.button
-                            className="flex items-center gap-1.5 px-3 py-2 glass border-border/50 rounded-lg text-sm font-medium text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                            whileHover={{ scale: 1.02, x: 2 }}
+                            className="flex items-center gap-1.5 px-4 py-2 glass border-border/50 rounded-full text-sm font-medium text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+                            whileHover={{ scale: 1.03, x: 2 }}
                             whileTap={{ scale: 0.98 }}
                           >
                             Read More
@@ -276,7 +273,7 @@ articles.forEach(article => {
                               href={`https://github.com/nouval/journal/blob/main/posts/${post.slug}.mdx`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="p-2 glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
+                              className="p-2.5 glass border-border/50 rounded-full text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.95 }}
                               aria-label={`View source for ${post.title}`}
@@ -285,7 +282,7 @@ articles.forEach(article => {
                             </motion.a>
                             <motion.a
                               href={`/journal/${post.slug}`}
-                              className="p-2 glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
+                              className="p-2.5 glass border-border/50 rounded-full text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.95 }}
                               aria-label={`Share ${post.title}`}
@@ -302,7 +299,7 @@ articles.forEach(article => {
             </FadeIn>
 
             {filteredPosts.length === 0 && (
-              <FadeIn delay={0.4} direction="up" className="text-center py-16 glass-hover rounded-xl">
+              <FadeIn delay={0.4} direction="up" className="text-center py-16 glass-hover rounded-2xl">
                 <FileText className="w-12 h-12 text-muted mx-auto mb-4" />
                 <h3 className="font-heading text-xl text-foreground mb-2">No articles found</h3>
                 <p className="text-muted">Try selecting a different category.</p>
@@ -310,22 +307,24 @@ articles.forEach(article => {
             )}
 
             <FadeIn delay={0.4} direction="up" className="mt-16 pt-12 border-t border-border/30">
-              <StaggerContainer staggerDelay={0.1} direction="up">
+              <StaggerContainer staggerDelay={0.1} direction="up" className="grid md:grid-cols-3 gap-6">
                 <motion.div
-                  className="text-center p-6 glass-hover rounded-xl"
+                  className="text-center p-6 glass-hover rounded-2xl flex flex-col justify-between"
                 >
-                  <motion.div
-                    className="p-3 glass border-border/50 rounded-lg text-primary mx-auto w-fit mb-4"
-                    whileHover={{ scale: 1.1, rotate: 3 }}
-                  >
-                    <FileText className="w-6 h-6" />
-                  </motion.div>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">RSS Feed</h3>
-                  <p className="text-sm text-muted mb-4">Subscribe to get new articles directly in your feed reader.</p>
+                  <div>
+                    <motion.div
+                      className="p-3.5 glass border-border/50 rounded-2xl text-primary mx-auto w-fit mb-4"
+                      whileHover={{ scale: 1.1, rotate: 3 }}
+                    >
+                      <FileText className="w-6 h-6" />
+                    </motion.div>
+                    <h3 className="font-heading font-semibold text-foreground mb-2">RSS Feed</h3>
+                    <p className="text-sm text-muted mb-6 leading-relaxed">Subscribe to get new articles directly in your feed reader.</p>
+                  </div>
                   <motion.a
                     href="/rss.xml"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 glass border-border/50 rounded-lg text-sm font-mono text-muted hover:border-primary/50 hover:text-primary transition-all"
-                    whileHover={{ scale: 1.02 }}
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 glass border-border/50 rounded-full text-sm font-mono text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+                    whileHover={{ scale: 1.03 }}
                   >
                     <ExternalLink className="w-4 h-4" />
                     Subscribe
@@ -333,22 +332,24 @@ articles.forEach(article => {
                 </motion.div>
 
                 <motion.div
-                  className="text-center p-6 glass-hover rounded-xl"
+                  className="text-center p-6 glass-hover rounded-2xl flex flex-col justify-between"
                 >
-                  <motion.div
-                    className="p-3 glass border-border/50 rounded-lg text-secondary mx-auto w-fit mb-4"
-                    whileHover={{ scale: 1.1, rotate: -3 }}
-                  >
-                    <FaGithub className="w-6 h-6" />
-                  </motion.div>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">Open Source</h3>
-                  <p className="text-sm text-muted mb-4">All articles are open source. Contribute corrections or translations.</p>
+                  <div>
+                    <motion.div
+                      className="p-3.5 glass border-border/50 rounded-2xl text-secondary mx-auto w-fit mb-4"
+                      whileHover={{ scale: 1.1, rotate: -3 }}
+                    >
+                      <FaGithub className="w-6 h-6" />
+                    </motion.div>
+                    <h3 className="font-heading font-semibold text-foreground mb-2">Open Source</h3>
+                    <p className="text-sm text-muted mb-6 leading-relaxed">All articles are open source. Contribute corrections or translations.</p>
+                  </div>
                   <motion.a
                     href="https://github.com/nouval/journal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 glass border-border/50 rounded-lg text-sm font-mono text-muted hover:border-secondary/50 hover:text-secondary transition-all"
-                    whileHover={{ scale: 1.02 }}
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 glass border-border/50 rounded-full text-sm font-mono text-muted hover:border-secondary/50 hover:text-secondary hover:shadow-[0_0_20px_rgba(176,38,255,0.2)] transition-all"
+                    whileHover={{ scale: 1.03 }}
                   >
                     <FaGithub className="w-4 h-4" />
                     View Repository
@@ -356,19 +357,20 @@ articles.forEach(article => {
                 </motion.div>
 
                 <motion.div
-                  className="text-center p-6 glass-hover rounded-xl"
+                  className="text-center p-6 glass-hover rounded-2xl flex flex-col justify-between"
                 >
-                  <motion.div
-                    className="p-3 glass border-border/50 rounded-lg text-primary mx-auto w-fit mb-4"
-                    whileHover={{ scale: 1.1, rotate: 3 }}
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </motion.div>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">Newsletter</h3>
-                  <p className="text-sm text-muted mb-4">Monthly digest of new articles, project updates, and curated links.</p>
+                  <div>
+                    <motion.div
+                      className="p-3.5 glass border-border/50 rounded-2xl text-primary mx-auto w-fit mb-4"
+                      whileHover={{ scale: 1.1, rotate: 3 }}
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </motion.div>
+                    <h3 className="font-heading font-semibold text-foreground mb-2">Newsletter</h3>
+                    <p className="text-sm text-muted mb-6 leading-relaxed">Monthly digest of new articles, project updates, and curated links.</p>
+                  </div>
                   <motion.button
-                    className="inline-flex items-center gap-1.5 px-4 py-2 glass border-border/50 rounded-lg text-sm font-mono text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                    whileHover={{ scale: 1.02 }}
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 glass border-border/50 rounded-full text-sm font-mono text-muted/50 cursor-not-allowed transition-all"
                     disabled
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -380,9 +382,5 @@ articles.forEach(article => {
           </div>
         </section>
       </main>
-      <Footer />
-    </div>
   );
 }
-
-import React from "react";

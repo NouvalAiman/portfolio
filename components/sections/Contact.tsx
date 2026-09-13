@@ -8,7 +8,7 @@ type ContactFormState = {
   message: string;
   errors?: Record<string, string[]>;
 };
-import { Send, Terminal, AlertCircle, CheckCircle, X, Loader2 } from "lucide-react";
+import { Send, AlertCircle, CheckCircle, X, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
@@ -56,8 +56,8 @@ function SubmitButton() {
     <motion.button
       type="submit"
       disabled={pending}
-      className="w-full mt-8 flex items-center justify-center gap-3 px-6 py-4 bg-primary text-background font-heading font-semibold text-base rounded-lg overflow-hidden glow-primary hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-      whileHover={{ scale: 1.01, boxShadow: "0 0 40px rgba(0, 229, 255, 0.5)" }}
+      className="w-full mt-8 flex items-center justify-center gap-3 px-8 py-4 bg-primary text-background font-heading font-semibold text-base rounded-full overflow-hidden glow-primary hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_25px_var(--primary-glow)]"
+      whileHover={{ scale: 1.01, boxShadow: "0 0 45px rgba(0, 229, 255, 0.6)" }}
       whileTap={{ scale: 0.99 }}
     >
       <span className="relative flex items-center gap-2 z-10">
@@ -158,7 +158,7 @@ export function Contact() {
               </StaggerContainer>
             </div>
 
-            <div className="glass-hover p-6 rounded-xl">
+            <div className="glass-hover p-6 rounded-2xl">
               <h3 className="font-heading font-semibold text-foreground mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-primary" />
                 Availability
@@ -167,15 +167,15 @@ export function Contact() {
                 {availability.map((item) => (
                   <motion.div
                     key={item.label}
-                    className="flex items-center justify-between p-3 glass border-border/50 rounded-lg"
+                    className="flex items-center justify-between p-3 glass border-border/50 rounded-xl mb-2.5 last:mb-0"
                     whileHover={{ x: 4 }}
                   >
-                    <span className="text-sm text-foreground">{item.label}</span>
+                    <span className="text-sm text-foreground font-medium">{item.label}</span>
                     <motion.span
-                      className={`px-2.5 py-1 text-xs font-mono rounded ${
+                      className={`px-3 py-1 text-xs font-mono rounded-full font-semibold ${
                         item.color === "primary"
-                          ? "bg-primary/10 text-primary border border-primary/30"
-                          : "bg-secondary/10 text-secondary border border-secondary/30"
+                          ? "bg-primary/10 text-primary border border-primary/30 shadow-[0_0_10px_rgba(0,229,255,0.2)]"
+                          : "bg-secondary/10 text-secondary border border-secondary/30 shadow-[0_0_10px_rgba(176,38,255,0.2)]"
                       }`}
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
@@ -190,7 +190,7 @@ export function Contact() {
           </FadeIn>
 
           <FadeIn delay={0.3} direction="right">
-            <form action={formAction} className="glass-hover p-6 lg:p-8 rounded-xl" noValidate>
+            <form action={formAction} className="glass-hover p-6 lg:p-8 rounded-2xl" noValidate>
               <div className="mb-4 flex items-center gap-2 text-xs text-muted font-mono">
                 <span className="text-primary">$</span>
                 <span>contact_form --submit</span>
@@ -277,7 +277,7 @@ export function Contact() {
                         required={field.required}
                         placeholder={field.placeholder}
                         rows={6}
-                        className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        className="w-full border border-border/50 rounded-xl px-4 py-3 bg-background/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
                         aria-invalid={formState.errors?.[field.name] ? "true" : "false"}
@@ -290,7 +290,7 @@ export function Contact() {
                         type={field.type}
                         required={field.required}
                         placeholder={field.placeholder}
-                        className="w-full border border-border/50 rounded-lg px-4 py-3 bg-background/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        className="w-full border border-border/50 rounded-xl px-4 py-3 bg-background/50 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                         aria-label={field.label}
                         autoComplete={field.name === "email" ? "email" : field.name}
                         aria-invalid={formState.errors?.[field.name] ? "true" : "false"}

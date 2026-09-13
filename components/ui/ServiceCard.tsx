@@ -111,10 +111,10 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           href={service.ctaLink || "/#contact"}
           target={service.ctaLink?.startsWith("http") ? "_blank" : undefined}
           rel={service.ctaLink?.startsWith("http") ? "noopener noreferrer" : undefined}
-          className={`mt-auto w-full py-3 px-4 rounded-lg font-heading font-semibold text-base text-center transition-all ${
+          className={`mt-auto w-full py-3.5 px-6 rounded-full font-heading font-semibold text-base text-center transition-all ${
             service.isPopular
-              ? "bg-primary text-background hover:brightness-110 glow-primary"
-              : "glass border-border/50 text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5"
+              ? "bg-primary text-background hover:brightness-110 shadow-[0_0_25px_var(--primary-glow)] hover:shadow-[0_0_45px_rgba(0,229,255,0.6)]"
+              : "glass border-border/60 text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_25px_rgba(0,229,255,0.2)]"
           }`}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -132,9 +132,9 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
 
 export function CustomSolutionBanner() {
   return (
-    <div className="glass-hover rounded-2xl p-6 lg:p-8 text-center">
+    <div className="glass-hover rounded-2xl p-6 lg:p-8 text-center border border-border/50">
       <motion.div
-        className="p-3 glass border-border/50 rounded-lg text-primary mx-auto w-fit mb-4"
+        className="p-3.5 glass border-border/50 rounded-2xl text-primary mx-auto w-fit mb-4 shadow-[0_0_20px_rgba(0,229,255,0.15)]"
         whileHover={{ scale: 1.1, rotate: 3 }}
       >
         <Shield className="w-6 h-6" />
@@ -142,15 +142,15 @@ export function CustomSolutionBanner() {
       <h3 className="font-heading text-xl lg:text-2xl font-bold text-foreground mb-3">
         Butuh solusi custom?
       </h3>
-      <p className="text-muted max-w-xl mx-auto mb-6">
+      <p className="text-muted max-w-xl mx-auto mb-6 leading-relaxed">
         Setiap bisnis unik. Jika butuh kombinasi fitur khusus, integrasi legacy system, atau arsitektur khusus — mari diskusikan.
       </p>
       <motion.a
         href="https://wa.me/6288213842912?text=Halo%20Nouval,%20saya%20tertarik%20untuk%20diskusi%20mengenai%20pembuatan%20proyek%20website%20custom"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-6 py-3 glass border-border/50 text-foreground font-medium rounded-lg hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-        whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 229, 255, 0.3)" }}
+        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full glass border-border/60 text-foreground font-heading font-semibold hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)] transition-all"
+        whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.98 }}
       >
         Diskusi Proyek Custom

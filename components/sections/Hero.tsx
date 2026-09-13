@@ -49,6 +49,19 @@ export function Hero() {
         > 
           
 
+          <motion.div
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass border border-primary/30 text-xs font-mono text-muted mb-8 shadow-[0_0_15px_rgba(0,229,255,0.15)]"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span className="text-foreground/90 font-medium">Available for new opportunities</span>
+          </motion.div>
+
           <motion.h1
             className="text-5xl sm:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-6"
             initial={{ opacity: 0, y: 30 }}
@@ -83,8 +96,8 @@ export function Hero() {
           >
             <motion.a
               href="#projects"
-              className="relative group px-8 py-4 bg-primary text-background font-heading font-semibold text-base rounded-lg overflow-hidden glow-primary"
-              whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(0, 229, 255, 0.5), 0 0 80px rgba(0, 229, 255, 0.2)" }}
+              className="relative group px-8 py-4 bg-primary text-background font-heading font-semibold text-base rounded-full overflow-hidden glow-primary"
+              whileHover={{ scale: 1.03, boxShadow: "0 0 45px rgba(0, 229, 255, 0.6), 0 0 90px rgba(0, 229, 255, 0.25)" }}
               whileTap={{ scale: 0.98 }}
               style={{ transformOrigin: "center center" }}
             >
@@ -101,8 +114,8 @@ export function Hero() {
               href="https://github.com/NouvalAiman"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative group px-8 py-4 glass border-border/50 text-foreground font-heading font-semibold text-base rounded-lg overflow-hidden hover:border-primary/50 hover:text-primary transition-all"
-              whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(176, 38, 255, 0.3)" }}
+              className="relative group px-8 py-4 glass border-border/60 text-foreground font-heading font-semibold text-base rounded-full overflow-hidden hover:border-primary/50 hover:text-primary transition-all"
+              whileHover={{ scale: 1.03, boxShadow: "0 0 35px rgba(176, 38, 255, 0.35)" }}
               whileTap={{ scale: 0.98 }}
             >
               <span className="relative flex items-center gap-2 z-10">
@@ -113,23 +126,23 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            className="mt-16 flex items-center justify-center gap-12 text-sm text-muted font-mono"
+            className="mt-16 inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 px-6 py-3 rounded-full glass border border-border/40 text-sm text-muted font-mono"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
             <div className="flex items-center gap-2">
-              <Rocket className="w-4 h-4 text-primary/70" />
+              <Rocket className="w-4 h-4 text-primary" />
               <span>3+ Years Exp</span>
             </div>
-            <div className="w-px h-6 bg-border/50" />
+            <div className="w-1 h-1 rounded-full bg-border" />
             <div className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-primary/70" />
+              <Terminal className="w-4 h-4 text-primary" />
               <span>20+ Projects</span>
             </div>
-            <div className="w-px h-6 bg-border/50" />
+            <div className="w-1 h-1 rounded-full bg-border" />
             <div className="flex items-center gap-2">
-              <MousePointerClick className="w-4 h-4 text-primary/70" />
+              <MousePointerClick className="w-4 h-4 text-primary" />
               <span>Open Source</span>
             </div>
           </motion.div>

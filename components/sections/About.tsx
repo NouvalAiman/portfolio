@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Zap, Shield, Database, Globe, Layers, Code, Server, Zap as ZapIcon } from "lucide-react";
+import { Zap, Database, Layers, Code, Server } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
 
@@ -15,7 +15,7 @@ const keyTerms = [
 
 const highlights = [
   { 
-    icon: ZapIcon, 
+    icon: Zap, 
     title: "Performance & UI", 
     desc: "Building fast, mobile-first, and highly responsive interfaces using Tailwind CSS and Next.js." 
   },
@@ -97,18 +97,18 @@ export function About() {
                 Currently focusing on the intersection of modern frontend frameworks like Next.js and robust backend architectures with Laravel. I enjoy bridging the gap between visually appealing interfaces and solid database logic.
               </p>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {keyTerms.map((item, index) => (
                   <motion.span
                     key={item.term}
-                    className="group relative px-3 py-1.5 glass border-border/50 rounded transition-all hover:border-primary/50 hover:bg-primary/5 cursor-help"
+                    className="group relative px-4 py-1.5 glass border-border/50 rounded-full transition-all hover:border-primary/50 hover:bg-primary/5 hover:glow-primary cursor-help"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 + index * 0.05, duration: 0.3 }}
                   >
                     <span className="font-mono text-xs text-primary">{item.term}</span>
                     <motion.div
-                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 glass border-border/50 rounded text-xs text-muted whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
+                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 glass border-border/50 rounded-xl text-xs text-muted whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20 shadow-lg"
                       style={{ transformOrigin: "center bottom" }}
                       initial={{ scale: 0.8, y: 10 }}
                       animate={{ scale: 1, y: 0 }}
@@ -127,11 +127,11 @@ export function About() {
               {highlights.map((item) => (
                 <motion.div
                   key={item.title}
-                  className="group glass-hover p-6 rounded-xl"
+                  className="group glass-hover p-6 rounded-2xl"
                 >
                   <div className="flex items-start gap-4">
                     <motion.div
-                      className="p-3 glass border-border/50 rounded-lg text-primary group-hover:glow-primary transition-all"
+                      className="p-3 glass border-border/50 rounded-xl text-primary group-hover:glow-primary transition-all"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                     >
                       <item.icon className="w-6 h-6" />
@@ -155,18 +155,21 @@ export function About() {
           <h3 className="font-heading font-semibold text-foreground mb-6 text-center">
             Currently focused on
           </h3>
-          <StaggerContainer staggerDelay={0.08} direction="up">
+          <StaggerContainer staggerDelay={0.08} direction="up" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {focusItems.map((item) => (
               <motion.div
                 key={item.label}
-                className="glass-hover p-4 rounded-lg group"
+                className="glass-hover p-5 rounded-2xl group flex flex-col justify-between"
               >
-                <p className="font-mono text-sm text-primary mb-1">{item.label}</p>
-                <p className="text-xs text-muted">{item.desc}</p>
+                <div>
+                  <p className="font-mono text-sm text-primary mb-1.5 font-medium">{item.label}</p>
+                  <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
+                </div>
                 <motion.div
-                  className="mt-3 h-0.5 bg-border/50 group-hover:bg-primary group-hover:w-full transition-all"
-                  style={{ width: "40%" }}
-                />
+                  className="mt-4 h-1 bg-border/50 rounded-full overflow-hidden group-hover:bg-primary/30 transition-all"
+                >
+                  <div className="h-full bg-gradient-to-r from-primary to-secondary w-2/5 group-hover:w-full transition-all duration-500 rounded-full" />
+                </motion.div>
               </motion.div>
             ))}
           </StaggerContainer>

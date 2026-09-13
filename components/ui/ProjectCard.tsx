@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowUpRight, Code, Database, Globe, Zap, Shield, Terminal } from "lucide-react";
+import { ExternalLink, ArrowUpRight, Database, Globe, Zap, Shield, Terminal } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
@@ -102,7 +102,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-center justify-between mb-3">
             <motion.span
-              className="px-2 py-1 text-xs font-mono glass border-border/50 rounded transition-all group-hover:border-primary/50 group-hover:text-primary"
+              className="px-3 py-1 text-xs font-mono glass border-border/50 rounded-full transition-all group-hover:border-primary/50 group-hover:text-primary"
               whileHover={{ scale: 1.05 }}
             >
               {project._createdAt ? new Date(project._createdAt).getFullYear() : "2024"}
@@ -121,7 +121,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.techStack?.slice(0, 5).map((tech: string) => (
               <motion.span
                 key={tech}
-                className="px-2 py-1 text-xs font-mono glass border-border/50 rounded transition-all hover:border-primary/50 hover:text-primary"
+                className="px-3 py-1 text-xs font-mono glass border-border/50 rounded-full transition-all hover:border-primary/50 hover:text-primary"
                 whileHover={{ scale: 1.05, y: -1 }}
               >
                 {tech}
@@ -129,7 +129,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             ))}
             {project.techStack && project.techStack.length > 5 && (
               <motion.span
-                className="px-2 py-1 text-xs font-mono glass border-border/50 rounded text-muted"
+                className="px-3 py-1 text-xs font-mono glass border-border/50 rounded-full text-muted"
                 whileHover={{ scale: 1.05 }}
               >
                 +{project.techStack.length - 5}
@@ -143,8 +143,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                whileHover={{ scale: 1.02, y: -2 }}
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium glass border-border/50 rounded-full text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+                whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label={`View ${project.title} on GitHub`}
               >
@@ -157,8 +157,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-                whileHover={{ scale: 1.02, y: -2 }}
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium glass border-border/50 rounded-full text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+                whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label={`View ${project.title} live demo`}
               >
@@ -168,8 +168,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             )}
             <motion.a
               href={`#project-${project._id}`}
-              className="ml-auto flex items-center gap-1.5 px-3 py-2 text-sm font-medium glass border-border/50 rounded-lg text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
-              whileHover={{ scale: 1.02, y: -2 }}
+              className="ml-auto flex items-center gap-1.5 px-4 py-2 text-sm font-medium glass border-border/50 rounded-full text-muted hover:border-primary/50 hover:text-primary hover:bg-primary/5 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all"
+              whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
               aria-label={`View ${project.title} details`}
             >
@@ -180,7 +180,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         <motion.div
-          className="absolute inset-0 border border-transparent rounded-xl pointer-events-none transition-all duration-500 group-hover:border-primary group-hover:glow-primary"
+          className="absolute inset-0 border border-transparent rounded-2xl pointer-events-none transition-all duration-500 group-hover:border-primary group-hover:glow-primary"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />
