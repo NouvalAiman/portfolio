@@ -113,7 +113,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.title}
           </h3>
 
-          <p className="text-muted text-sm leading-relaxed mb-4 flex-1">
+          <p className="text-gray-400 text-sm leading-relaxed whitespace-pre-line">
             {project.description}
           </p>
 
