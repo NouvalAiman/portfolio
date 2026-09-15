@@ -10,6 +10,7 @@ import {
   Server,
   Brain,
   Code2,
+  Radar,
 } from "lucide-react";
 import {
   SiNextdotjs,
@@ -133,6 +134,25 @@ const learningItems = [
   "Web Performance",
   "UI/UX Trends",
   "System Architecture",
+];
+
+const focusedItems = [
+  {
+    title: "Next.js & React",
+    desc: "Mastering App Router, Server Actions, and component reusability.",
+  },
+  {
+    title: "Laravel Ecosystem",
+    desc: "Deep diving into API development, Eloquent relationships, and Filament for admin panels.",
+  },
+  {
+    title: "Web Performance",
+    desc: "Learning how to optimize loading times, images, and Core Web Vitals.",
+  },
+  {
+    title: "UI/UX Fundamentals",
+    desc: "Improving my design sense to build more intuitive and accessible user experiences.",
+  },
 ];
 
 export function Skills() {
@@ -359,6 +379,50 @@ export function Skills() {
                 </div>
               </FadeIn>
             </div>
+
+            {/* Currently Focused On Sub-section */}
+            <FadeIn delay={0.45} direction="up" className="mt-8">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="relative flex items-center justify-center">
+                  <span className="animate-ping absolute inline-flex h-3.5 w-3.5 rounded-full bg-cyan-400 opacity-60" />
+                  <Radar className="w-5 h-5 text-primary relative z-10" />
+                </div>
+                <h3 className="font-mono text-sm uppercase tracking-wider text-foreground font-semibold flex items-center gap-2">
+                  <span>Currently Focused On</span>
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {focusedItems.map((item) => (
+                  <motion.div
+                    key={item.title}
+                    className="group relative p-4 rounded-xl glass border border-border/60 hover:border-primary/50 transition-all duration-300 flex flex-col justify-between hover:bg-white/[0.04] shadow-xs"
+                    whileHover={{ y: -2 }}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="font-mono text-primary font-bold text-sm select-none group-hover:translate-x-0.5 transition-transform">
+                          &gt;
+                        </span>
+                        <h4 className="font-mono text-xs font-semibold text-foreground group-hover:text-primary transition-colors tracking-tight">
+                          {item.title}
+                        </h4>
+                      </div>
+                      <p className="text-xs text-muted leading-relaxed font-sans pl-3.5">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    {/* Futuristic mini gradient accent bar */}
+                    <div className="mt-3.5 pt-2 border-t border-border/30 pl-3.5">
+                      <div className="relative h-1 w-full bg-border/40 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-primary to-secondary w-2/5 group-hover:w-full transition-all duration-500 rounded-full shadow-[0_0_8px_rgba(0,229,255,0.4)]" />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </FadeIn>
           </FadeIn>
         </div>
       </div>

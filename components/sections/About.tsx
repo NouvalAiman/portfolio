@@ -46,24 +46,7 @@ const highlights = [
   },
 ];
 
-const focusItems = [
-  { 
-    label: "Next.js & React", 
-    desc: "Mastering App Router, Server Actions, and component reusability." 
-  },
-  { 
-    label: "Laravel Ecosystem", 
-    desc: "Deep diving into API development, Eloquent relationships, and Filament for admin panels." 
-  },
-  { 
-    label: "Web Performance", 
-    desc: "Learning how to optimize loading times, images, and Core Web Vitals." 
-  },
-  { 
-    label: "UI/UX Fundamentals", 
-    desc: "Improving my design sense to build more intuitive and accessible user experiences." 
-  },
-];
+
 
 export function About() {
   return (
@@ -150,30 +133,6 @@ export function About() {
             </StaggerContainer>
           </FadeIn>
         </div>
-
-        <FadeIn delay={0.5} direction="up" className="mt-16 pt-12 border-t border-border/30">
-          <h3 className="font-heading font-semibold text-foreground mb-6 text-center">
-            Currently focused on
-          </h3>
-          <StaggerContainer staggerDelay={0.08} direction="up" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {focusItems.map((item) => (
-              <motion.div
-                key={item.label}
-                className="glass-hover p-5 rounded-2xl group flex flex-col justify-between"
-              >
-                <div>
-                  <p className="font-mono text-sm text-primary mb-1.5 font-medium">{item.label}</p>
-                  <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
-                </div>
-                <motion.div
-                  className="mt-4 h-1 bg-border/50 rounded-full overflow-hidden group-hover:bg-primary/30 transition-all"
-                >
-                  <div className="h-full bg-gradient-to-r from-primary to-secondary w-2/5 group-hover:w-full transition-all duration-500 rounded-full" />
-                </motion.div>
-              </motion.div>
-            ))}
-          </StaggerContainer>
-        </FadeIn>
       </div>
     </section>
   );
