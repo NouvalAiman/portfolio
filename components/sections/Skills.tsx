@@ -180,42 +180,43 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden bg-[#050505]"
       aria-labelledby="skills-heading"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Ambience */}
+      {/* Base Dark Canvas */}
+      <div className="absolute inset-0 bg-[#050505]" />
+
+      {/* Scanline Overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
         style={{ backgroundImage: "var(--scanline)" }}
       />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ backgroundImage: "var(--radial-glow)" }}
-      />
 
-      {/* Subtle Cyber Grid Layer in Background */}
+      {/* Cyber Grid Pattern (Subtle & Soft, matching Projects & Hero) */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-15"
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px)
+            linear-gradient(to right, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 229, 255, 0.05) 1px, transparent 1px)
           `,
-          backgroundSize: "48px 48px",
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
         }}
       />
 
       {/* Background Cursor Spotlight (Hanya di layer background, pointer-events-none) */}
       <motion.div
-        className="pointer-events-none absolute w-[650px] h-[650px] rounded-full blur-[120px] transition-opacity duration-300"
+        className="pointer-events-none absolute w-[650px] h-[650px] rounded-full blur-[120px] transition-opacity duration-300 z-0"
         style={{
           x: springX,
           y: springY,
           translateX: "-50%",
           translateY: "-50%",
-          opacity: isHovered ? 0.14 : 0.05,
+          opacity: isHovered ? 0.15 : 0.05,
           background:
             "radial-gradient(circle, #06b6d4 0%, #a855f7 50%, transparent 70%)",
         }}
