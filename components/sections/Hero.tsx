@@ -79,8 +79,8 @@ export function Hero() {
       mouseTiltY.set(relY - rect.height / 2);
 
       setCursorPos({
-        x: Math.round((relX / rect.width) * 100),
-        y: Math.round((relY / rect.height) * 100),
+        x: Math.round(relX),
+        y: Math.round(relY),
       });
 
       if (!isHovered) setIsHovered(true);
@@ -155,17 +155,17 @@ export function Hero() {
           `,
           backgroundSize: "44px 44px",
           maskImage: isHovered
-            ? `radial-gradient(circle 520px at ${cursorPos.x}% ${cursorPos.y}%, black 20%, transparent 80%)`
+            ? `radial-gradient(circle 520px at ${cursorPos.x}px ${cursorPos.y}px, black 20%, transparent 80%)`
             : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
           WebkitMaskImage: isHovered
-            ? `radial-gradient(circle 520px at ${cursorPos.x}% ${cursorPos.y}%, black 20%, transparent 80%)`
+            ? `radial-gradient(circle 520px at ${cursorPos.x}px ${cursorPos.y}px, black 20%, transparent 80%)`
             : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
         }}
       />
 
       {/* Interactive Cursor Spotlight Glow */}
       <motion.div
-        className="pointer-events-none absolute w-[700px] h-[700px] rounded-full blur-[110px]"
+        className="pointer-events-none absolute top-0 left-0 w-[700px] h-[700px] rounded-full blur-[110px]"
         style={{
           x: spotlightSpringX,
           y: spotlightSpringY,

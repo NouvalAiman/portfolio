@@ -156,8 +156,9 @@ const focusedItems = [
 ];
 
 export function Skills() {
-  // --- Background Cursor Spotlight (Hanya di background, pointer-events-none) ---
+  // --- Background Cursor Spotlight & Torch Grid ---
   const [isHovered, setIsHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const spotlightX = useMotionValue(600);
   const spotlightY = useMotionValue(300);
   const springX = useSpring(spotlightX, { stiffness: 140, damping: 24 });
@@ -166,8 +167,11 @@ export function Skills() {
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       const rect = e.currentTarget.getBoundingClientRect();
-      spotlightX.set(e.clientX - rect.left);
-      spotlightY.set(e.clientY - rect.top);
+      const x = Math.round(e.clientX - rect.left);
+      const y = Math.round(e.clientY - rect.top);
+      spotlightX.set(x);
+      spotlightY.set(y);
+      setMousePos({ x, y });
       if (!isHovered) setIsHovered(true);
     },
     [isHovered, spotlightX, spotlightY]
@@ -194,17 +198,23 @@ export function Skills() {
         style={{ backgroundImage: "var(--scanline)" }}
       />
 
-      {/* Cyber Grid Pattern (Subtle & Soft, matching Projects & Hero) */}
+      {/* Dynamic Flashlight / Cursor-Revealed Cyber Grid (Torch Effect) */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
+        className={`pointer-events-none absolute inset-0 z-0 transition-opacity duration-300 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0, 229, 255, 0.05) 1px, transparent 1px)
+            linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px)
           `,
           backgroundSize: "44px 44px",
-          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          maskImage: isHovered
+            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+            : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
+          WebkitMaskImage: isHovered
+            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+            : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
         }}
       />
 

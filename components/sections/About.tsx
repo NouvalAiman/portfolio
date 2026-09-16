@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Zap, Database, Layers, Code, Server } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
@@ -46,17 +47,85 @@ const highlights = [
   },
 ];
 
-
-
 export function About() {
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  const spotlightX = useMotionValue(600);
+  const spotlightY = useMotionValue(300);
+  const springX = useSpring(spotlightX, { stiffness: 140, damping: 24 });
+  const springY = useSpring(spotlightY, { stiffness: 140, damping: 24 });
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = Math.round(e.clientX - rect.left);
+      const y = Math.round(e.clientY - rect.top);
+      spotlightX.set(x);
+      spotlightY.set(y);
+      setMousePos({ x, y });
+      if (!isHovered) setIsHovered(true);
+    },
+    [isHovered, spotlightX, spotlightY]
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+  }, []);
+
   return (
     <section
       id="about"
-      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden bg-[#050505]"
       aria-labelledby="about-heading"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
-      <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
+      {/* Base Dark Canvas */}
+      <div className="absolute inset-0 bg-[#050505]" />
+
+      {/* Background Visual Layer */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
+        {/* Scanline Overlay */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: "var(--scanline)" }}
+        />
+
+        {/* Dynamic Flashlight / Cursor-Revealed Cyber Grid (Torch Effect) */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-300 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: "44px 44px",
+            maskImage: isHovered
+              ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+              : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
+            WebkitMaskImage: isHovered
+              ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+              : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Interactive Cursor Spotlight Glow */}
+        <motion.div
+          className="absolute top-0 left-0 w-[650px] h-[650px] rounded-full blur-[120px] transition-opacity duration-300"
+          style={{
+            x: springX,
+            y: springY,
+            translateX: "-50%",
+            translateY: "-50%",
+            opacity: isHovered ? 0.14 : 0.05,
+            background:
+              "radial-gradient(circle, #06b6d4 0%, #a855f7 50%, transparent 70%)",
+          }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1} direction="up" className="text-center mb-16">
