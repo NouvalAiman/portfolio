@@ -1,13 +1,14 @@
 import { client } from '@/sanity/lib/client'
 import { groq } from 'next-sanity'
 import ExperienceCard, { ScrollLine, ExperienceItem } from '@/components/ui/ExperienceCard'
+import { CyberBackgroundWrapper } from '@/components/ui/CyberBackgroundWrapper'
 
 export default async function Experience() {
   const query = groq`*[_type == "experience"] | order(dateRange desc)`
   const experiences: ExperienceItem[] = await client.fetch(query)
 
   return (
-    <section id="experience" className="py-20 relative">
+    <CyberBackgroundWrapper as="section" id="experience" className="py-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-16">
@@ -60,6 +61,6 @@ export default async function Experience() {
           </a>
         </div>
       </div>
-    </section>
+    </CyberBackgroundWrapper>
   )
 }

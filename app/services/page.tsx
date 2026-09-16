@@ -1,5 +1,6 @@
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ServiceCard, CustomSolutionBanner } from "@/components/ui/ServiceCard";
+import { CyberBackgroundWrapper } from "@/components/ui/CyberBackgroundWrapper";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { Service } from "@/types";
@@ -77,11 +78,12 @@ export default async function ServicesPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden" aria-labelledby="services-heading">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
-        <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CyberBackgroundWrapper
+        as="section"
+        className="py-16 sm:py-24 lg:py-32"
+        aria-labelledby="services-heading"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn delay={0.1} direction="up" className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30 text-xs font-mono text-primary mb-6 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
               <Sparkles className="w-4 h-4 text-primary" />
@@ -107,7 +109,7 @@ export default async function ServicesPage() {
             <CustomSolutionBanner />
           </FadeIn>
         </div>
-      </section>
+      </CyberBackgroundWrapper>
     </main>
   );
 }

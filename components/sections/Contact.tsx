@@ -12,6 +12,7 @@ import { Send, AlertCircle, CheckCircle, X, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
+import { CyberBackgroundWrapper } from "@/components/ui/CyberBackgroundWrapper";
 import { sendEmail } from "@/lib/actions/contact";
 
 function getContactIcon(icon: string) {
@@ -88,15 +89,13 @@ export function Contact() {
   });
 
   return (
-    <section
+    <CyberBackgroundWrapper
+      as="section"
       id="contact"
-      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="py-20 sm:py-28 lg:py-32"
       aria-labelledby="contact-heading"
     >
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
-      <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1} direction="up" className="text-center mb-16">
   
           <h2
@@ -320,6 +319,6 @@ export function Contact() {
           </FadeIn>
         </div>
       </div>
-    </section>
+    </CyberBackgroundWrapper>
   );
 }

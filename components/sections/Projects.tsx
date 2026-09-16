@@ -1,6 +1,7 @@
 import { FadeIn } from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/StaggerContainer";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { CyberBackgroundWrapper } from "@/components/ui/CyberBackgroundWrapper";
 import { client } from "@/sanity/lib/client";
 import { Code2 } from "lucide-react";
 
@@ -35,15 +36,13 @@ export default async function Projects() {
   const projects: Project[] = await getProjects();
 
   return (
-    <section
+    <CyberBackgroundWrapper
+      as="section"
       id="projects"
-      className="relative py-20 sm:py-28 lg:py-32 overflow-hidden"
+      className="py-20 sm:py-28 lg:py-32"
       aria-labelledby="projects-heading"
     >
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "var(--scanline)" }} />
-      <div className="absolute inset-0" style={{ backgroundImage: "var(--radial-glow)" }} />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1} direction="up" className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30 text-xs font-mono text-primary mb-4 shadow-[0_0_15px_rgba(0,229,255,0.15)]">
             <Code2 className="w-4 h-4 text-primary" />
@@ -63,6 +62,6 @@ export default async function Projects() {
           ))}
         </StaggerContainer>
       </div>
-    </section>
+    </CyberBackgroundWrapper>
   );
 }
