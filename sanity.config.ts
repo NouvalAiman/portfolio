@@ -1,5 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { heroType } from "@/sanity/schemas/hero";
 import { projectType } from "@/sanity/schemas/project";
 import { experienceType } from "@/sanity/schemas/experience";
 import { serviceType } from "@/sanity/schemas/service";
@@ -15,6 +16,6 @@ export default defineConfig({
   plugins: [structureTool()],
 
   schema: {
-    types: [projectType, experienceType, serviceType],
+    types: [heroType, projectType, experienceType, serviceType],
   },
 });

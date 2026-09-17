@@ -107,9 +107,9 @@ export const projects: Project[] = [
 
 export const skills: Skill[] = [
   // Frontend
-  { id: "1", name: "Next.js / React", category: "frontend", proficiency: 75, color: "#61DAFB" },
+  { id: "1", name: "Next.js / React", category: "frontend", proficiency: 80, color: "#61DAFB" },
   { id: "2", name: "Tailwind CSS", category: "frontend", proficiency: 70, color: "#06B6D4" },
-  { id: "3", name: "JavaScript / TypeScript", category: "frontend", proficiency: 80, color: "#3178C6" },
+  { id: "3", name: "JavaScript / TypeScript", category: "frontend", proficiency: 70, color: "#3178C6" },
 
   // Backend
   { id: "4", name: "Laravel / PHP", category: "backend", proficiency: 85, color: "#F55247" },

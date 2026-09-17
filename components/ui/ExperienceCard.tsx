@@ -24,7 +24,11 @@ export type ExperienceItem = {
   _id: string;
   role: string;
   company: string;
-  dateRange: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  isCurrent?: boolean;
+  dateRange?: string;
   workType: string;
   description: string;
   bulletPoints?: string[];

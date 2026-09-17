@@ -4,7 +4,13 @@ import ExperienceCard, { ScrollLine, ExperienceItem } from '@/components/ui/Expe
 import { CyberBackgroundWrapper } from '@/components/ui/CyberBackgroundWrapper'
 
 export default async function Experience() {
-  const query = groq`*[_type == "experience"] | order(dateRange desc)`
+  const query = groq`*[_type == "experience"] | order(startDate desc) {
+    ...,
+    startDate,
+    endDate,
+    isCurrent,
+    workType
+  }`
   const experiences: ExperienceItem[] = await client.fetch(query)
 
   return (
@@ -29,8 +35,14 @@ export default async function Experience() {
                 <div className="md:w-[20%] flex flex-col md:items-end md:text-right md:pr-10 shrink-0 relative mt-2">
                   <div className="absolute right-[-5px] top-1.5 w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_15px_#06b6d4] hidden md:block z-10" />
                   
-                  <span className="text-cyan-400 font-mono font-bold text-sm whitespace-nowrap">{exp.dateRange}</span>
-                  <span className="text-gray-500 font-mono text-xs mt-1 mb-3">Remote</span>
+                  <span className="text-cyan-400 font-mono font-bold text-sm whitespace-nowrap">
+                    {exp.startDate ? `${exp.startDate.toUpperCase()} — ${exp.isCurrent ? 'PRESENT' : (exp.endDate?.toUpperCase() || 'PRESENT')}` : exp.dateRange}
+                  </span>
+                  {exp.location ? (
+                    <span className="text-gray-500 font-mono text-xs mt-1 mb-3">{exp.location}</span>
+                  ) : (
+                    <div className="mb-3" />
+                  )}
                   
                   <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-gray-300 w-fit md:ml-auto flex items-center gap-2 whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></span>

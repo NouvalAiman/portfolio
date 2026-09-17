@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Fragment } from "react";
 import type { Variants } from "framer-motion";
 import {
   motion,
@@ -14,13 +14,48 @@ import {
   Terminal,
   Code,
   Rocket,
+  Sparkles,
 } from "lucide-react";
 
-const typewriterPhrases = [
+export interface StatItem {
+  label: string;
+  value?: string;
+  icon?: string;
+}
+
+export interface HeroProps {
+  animatedTitles?: string[];
+  statsBar?: StatItem[];
+}
+
+const defaultAnimatedTitles = [
   "Building Scalable Web Systems",
   "Full-Stack Next.js & Laravel Architect",
   "IoT & Embedded Systems Engineer",
 ];
+
+const defaultStatsBar: StatItem[] = [
+  { label: "Years Exp", value: "3+", icon: "rocket" },
+  { label: "Projects", value: "2+", icon: "code" },
+  { label: "Open Source", value: "", icon: "mouse" },
+];
+
+function getStatIcon(icon?: string) {
+  const normalized = icon?.toLowerCase() || "";
+  if (normalized === "rocket") {
+    return <Rocket className="w-4 h-4 text-primary transition-transform group-hover:-translate-y-0.5" />;
+  }
+  if (normalized === "code" || normalized === "terminal") {
+    return <Terminal className="w-4 h-4 text-primary transition-transform group-hover:rotate-6" />;
+  }
+  if (normalized === "sparkle" || normalized === "sparkles") {
+    return <Sparkles className="w-4 h-4 text-primary transition-transform group-hover:rotate-12" />;
+  }
+  if (normalized === "mouse" || normalized === "click") {
+    return <MousePointerClick className="w-4 h-4 text-primary transition-transform group-hover:scale-110" />;
+  }
+  return <Terminal className="w-4 h-4 text-primary transition-transform group-hover:scale-110" />;
+}
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -47,7 +82,15 @@ const itemVariants: Variants = {
   },
 };
 
-export function Hero() {
+export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
+  const activeTitles =
+    animatedTitles && animatedTitles.length > 0
+      ? animatedTitles
+      : defaultAnimatedTitles;
+
+  const activeStats =
+    statsBar && statsBar.length > 0 ? statsBar : defaultStatsBar;
+
   // --- 1. Spotlight & Mouse Coordinate Tracking ---
   const [isHovered, setIsHovered] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
@@ -100,7 +143,8 @@ export function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentPhrase = typewriterPhrases[phraseIndex];
+    const safeIndex = phraseIndex % activeTitles.length;
+    const currentPhrase = activeTitles[safeIndex] || "";
     let timer: NodeJS.Timeout;
 
     if (!isDeleting) {
@@ -121,13 +165,13 @@ export function Hero() {
       } else {
         timer = setTimeout(() => {
           setIsDeleting(false);
-          setPhraseIndex((prev) => (prev + 1) % typewriterPhrases.length);
+          setPhraseIndex((prev) => (prev + 1) % activeTitles.length);
         }, 400);
       }
     }
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, phraseIndex]);
+  }, [displayText, isDeleting, phraseIndex, activeTitles]);
 
   return (
     <section
@@ -222,23 +266,7 @@ export function Hero() {
           initial="hidden"
           animate="visible"
         >
-          {/* Status Badge with Live Radar Pulse */}
-          <motion.div variants={itemVariants}>
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full glass border border-primary/30 text-xs font-mono text-muted mb-8 shadow-[0_0_20px_rgba(0,229,255,0.12)] hover:border-primary/60 transition-colors">
-              <span className="relative flex h-2.5 w-2.5 items-center justify-center">
-                {/* Active radar ping wave */}
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                {/* Ambient glow core */}
-                <span className="absolute -inset-0.5 rounded-full bg-emerald-500/40 blur-xs animate-pulse" />
-                {/* Solid signal core */}
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-              </span>
-              <span className="text-foreground/90 font-medium tracking-wide flex items-center gap-1.5">
-                <span>Available for new opportunities</span>
-                <span className="text-[10px] text-primary/80 font-mono">[ONLINE]</span>
-              </span>
-            </div>
-          </motion.div>
+          
 
           {/* Main Title */}
           <motion.h1
@@ -254,7 +282,7 @@ export function Hero() {
           <motion.div variants={itemVariants}>
             <div className="min-h-[2.75rem] sm:min-h-[3.25rem] flex items-center justify-center mb-6">
               <span className="sr-only">
-                Building Scalable Web Systems | Full-Stack Next.js & Laravel Architect | IoT & Embedded Systems Engineer
+                {activeTitles.join(" | ")}
               </span>
               <p
                 className="text-xl sm:text-2xl lg:text-3xl font-mono font-medium tracking-tight flex items-center text-center justify-center"
@@ -351,20 +379,27 @@ export function Hero() {
             variants={itemVariants}
             className="mt-14 inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 px-7 py-3 rounded-full glass border border-border/50 text-sm text-muted font-mono shadow-[0_0_25px_rgba(0,0,0,0.4)] backdrop-blur-md hover:border-primary/30 transition-colors"
           >
-            <div className="flex items-center gap-2 group cursor-default">
-              <Rocket className="w-4 h-4 text-primary transition-transform group-hover:-translate-y-0.5" />
-              <span className="text-foreground/90 font-medium">3+ Years Exp</span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-primary/40" />
-            <div className="flex items-center gap-2 group cursor-default">
-              <Terminal className="w-4 h-4 text-primary transition-transform group-hover:rotate-6" />
-              <span className="text-foreground/90 font-medium">20+ Projects</span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-secondary/40" />
-            <div className="flex items-center gap-2 group cursor-default">
-              <MousePointerClick className="w-4 h-4 text-primary transition-transform group-hover:scale-110" />
-              <span className="text-foreground/90 font-medium">Open Source</span>
-            </div>
+            {activeStats.map((stat, idx) => {
+              const textContent = stat.value
+                ? `${stat.value} ${stat.label}`.trim()
+                : stat.label;
+              const dotColor =
+                idx % 2 === 1 ? "bg-primary/40" : "bg-secondary/40";
+
+              return (
+                <Fragment key={idx}>
+                  {idx > 0 && (
+                    <div className={`w-1 h-1 rounded-full ${dotColor}`} />
+                  )}
+                  <div className="flex items-center gap-2 group cursor-default">
+                    {getStatIcon(stat.icon)}
+                    <span className="text-foreground/90 font-medium">
+                      {textContent}
+                    </span>
+                  </div>
+                </Fragment>
+              );
+            })}
           </motion.div>
         </motion.div>
       </motion.div>
