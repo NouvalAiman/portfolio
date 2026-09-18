@@ -107,22 +107,22 @@ export const projects: Project[] = [
 
 export const skills: Skill[] = [
   // Frontend
-  { id: "1", name: "Next.js / React", category: "frontend", proficiency: 80, color: "#61DAFB" },
+  { id: "1", name: "Next.js / React", category: "frontend", proficiency: 75, color: "#61DAFB" },
   { id: "2", name: "Tailwind CSS", category: "frontend", proficiency: 70, color: "#06B6D4" },
-  { id: "3", name: "JavaScript / TypeScript", category: "frontend", proficiency: 70, color: "#3178C6" },
+  { id: "3", name: "JavaScript / TypeScript", category: "frontend", proficiency: 65, color: "#3178C6" },
 
   // Backend
-  { id: "4", name: "Laravel / PHP", category: "backend", proficiency: 85, color: "#F55247" },
+  { id: "4", name: "Laravel / PHP", category: "backend", proficiency: 80, color: "#F55247" },
   { id: "5", name: "RESTful APIs & JSON", category: "backend", proficiency: 70, color: "#E10098" },
-  { id: "6", name: "Next.js Server Actions", category: "backend", proficiency: 70, color: "#61DAFB" },
+  { id: "6", name: "Next.js Server Actions", category: "backend", proficiency: 65, color: "#61DAFB" },
 
   // Database
-  { id: "7", name: "MySQL / MariaDB", category: "database", proficiency: 85, color: "#4479A1" },
+  { id: "7", name: "MySQL / MariaDB", category: "database", proficiency: 75, color: "#4479A1" },
   { id: "8", name: "PostgreSQL", category: "database", proficiency: 70, color: "#4169E1" },
 
   // Deployment & Tools
-  { id: "9", name: "Git / GitHub", category: "deployment", proficiency: 85, color: "#F05032" },
-  { id: "10", name: "Vercel / Shared Hosting / VPS", category: "deployment", proficiency: 85, color: "#000000" },
+  { id: "9", name: "Git / GitHub", category: "deployment", proficiency: 80, color: "#F05032" },
+  { id: "10", name: "Vercel / Shared Hosting / VPS", category: "deployment", proficiency: 80, color: "#000000" },
 
   // Soft Skills
   { id: "11", name: "Problem Solving & Debugging", category: "soft", proficiency: 90 },

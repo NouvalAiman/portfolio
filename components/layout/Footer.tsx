@@ -108,11 +108,11 @@ export function Footer() {
                 "Next.js",
                 "React",
                 "TypeScript",
-                "Go",
                 "PostgreSQL",
-                "Kubernetes",
+                "php",
                 "Tailwind",
-                "tRPC",
+                "MySQL",
+
               ].map((tech, index) => (
                 <motion.span
                   key={tech}
