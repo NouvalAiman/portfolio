@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, Fragment } from "react";
+import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import type { Variants } from "framer-motion";
 import {
   motion,
@@ -93,9 +93,10 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
 
   // --- 1. Spotlight & Mouse Coordinate Tracking ---
   const [isHovered, setIsHovered] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
+  const heroRef = useRef<HTMLElement | null>(null);
+  const rafId = useRef<number | null>(null);
 
-  // 3D Perspective Tilt Values
+  // 3D Perspective Tilt Values (Framer Motion values do not cause React re-renders)
   const mouseTiltX = useMotionValue(0);
   const mouseTiltY = useMotionValue(0);
   const tiltSpringX = useSpring(mouseTiltX, { stiffness: 120, damping: 22 });
@@ -109,8 +110,19 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
   const spotlightSpringX = useSpring(spotlightX, { stiffness: 160, damping: 26 });
   const spotlightSpringY = useSpring(spotlightY, { stiffness: 160, damping: 26 });
 
+  const handleMouseEnter = useCallback(() => {
+    if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+    setIsHovered(true);
+  }, []);
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
+      if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+        return;
+      }
+
       const rect = e.currentTarget.getBoundingClientRect();
       const relX = e.clientX - rect.left;
       const relY = e.clientY - rect.top;
@@ -121,20 +133,22 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
       mouseTiltX.set(relX - rect.width / 2);
       mouseTiltY.set(relY - rect.height / 2);
 
-      setCursorPos({
-        x: Math.round(relX),
-        y: Math.round(relY),
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        if (heroRef.current) {
+          heroRef.current.style.setProperty("--cursor-x", `${Math.round(relX)}px`);
+          heroRef.current.style.setProperty("--cursor-y", `${Math.round(relY)}px`);
+        }
       });
-
-      if (!isHovered) setIsHovered(true);
     },
-    [isHovered, mouseTiltX, mouseTiltY, spotlightX, spotlightY]
+    [mouseTiltX, mouseTiltY, spotlightX, spotlightY]
   );
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
     mouseTiltX.set(0);
     mouseTiltY.set(0);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
   }, [mouseTiltX, mouseTiltY]);
 
   // --- 2. Dynamic Typewriter Effect ---
@@ -175,8 +189,10 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
 
   return (
     <section
+      ref={heroRef}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -189,7 +205,7 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
         style={{ backgroundImage: "var(--scanline)" }}
       />
 
-      {/* Subtle Cyber Grid Pattern with Radial Cursor Mask */}
+      {/* Subtle Cyber Grid Pattern with Radial Cursor Mask driven by CSS custom properties */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{
@@ -199,18 +215,19 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
           `,
           backgroundSize: "44px 44px",
           maskImage: isHovered
-            ? `radial-gradient(circle 520px at ${cursorPos.x}px ${cursorPos.y}px, black 20%, transparent 80%)`
+            ? "radial-gradient(circle 520px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 20%, transparent 80%)"
             : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
           WebkitMaskImage: isHovered
-            ? `radial-gradient(circle 520px at ${cursorPos.x}px ${cursorPos.y}px, black 20%, transparent 80%)`
+            ? "radial-gradient(circle 520px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 20%, transparent 80%)"
             : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
         }}
       />
 
       {/* Interactive Cursor Spotlight Glow */}
       <motion.div
-        className="pointer-events-none absolute top-0 left-0 w-[700px] h-[700px] rounded-full blur-[110px]"
+        className="pointer-events-none absolute top-0 left-0 w-[700px] h-[700px] rounded-full blur-[110px] will-change-transform"
         style={{
+          contain: "layout style paint",
           x: spotlightSpringX,
           y: spotlightSpringY,
           translateX: "-50%",
@@ -317,6 +334,7 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
             {/* Primary Button: View Work with Shimmer & Neon Glow */}
             <motion.a
               href="#projects"
+              aria-label="View Work - Projects section"
               className="relative group px-8 py-4 bg-primary text-background font-heading font-semibold text-base rounded-full overflow-hidden shadow-[0_0_25px_rgba(0,229,255,0.4)]"
               whileHover={{
                 scale: 1.04,
@@ -353,6 +371,7 @@ export function Hero({ animatedTitles, statsBar }: HeroProps = {}) {
               href="https://github.com/NouvalAiman"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Nouval Aiman's GitHub profile"
               className="relative group px-8 py-4 glass border border-border/80 text-foreground font-heading font-semibold text-base rounded-full overflow-hidden hover:border-primary/70 hover:text-primary transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
               whileHover={{
                 scale: 1.04,

@@ -1,11 +1,15 @@
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
-import Projects from "@/components/sections/Projects";
-import Experience from "@/components/sections/Experience";
-import { Contact } from "@/components/sections/Contact";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
+
+// Dynamic imports for below-the-fold sections to optimize LCP and code splitting
+const About = dynamic(() => import("@/components/sections/About").then((mod) => mod.About));
+const Skills = dynamic(() => import("@/components/sections/Skills").then((mod) => mod.Skills));
+const Projects = dynamic(() => import("@/components/sections/Projects"));
+const Experience = dynamic(() => import("@/components/sections/Experience"));
+const Contact = dynamic(() => import("@/components/sections/Contact").then((mod) => mod.Contact));
 
 const heroQuery = groq`*[_type == "hero"][0]{
   animatedTitles,
@@ -17,15 +21,30 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
+      {/* Hero stays static and prioritized for fastest LCP */}
       <Hero
         animatedTitles={heroData?.animatedTitles}
         statsBar={heroData?.statsBar}
       />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
+      <div className="content-auto">
+        <About />
+      </div>
+      <div className="content-auto">
+        <Skills />
+      </div>
+      <div className="content-auto">
+        <Suspense fallback={<div className="py-20 min-h-[400px]" />}>
+          <Projects />
+        </Suspense>
+      </div>
+      <div className="content-auto">
+        <Suspense fallback={<div className="py-20 min-h-[400px]" />}>
+          <Experience />
+        </Suspense>
+      </div>
+      <div className="content-auto">
+        <Contact />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export interface CyberBackgroundWrapperProps
@@ -25,16 +25,28 @@ export function CyberBackgroundWrapper({
   ...props
 }: CyberBackgroundWrapperProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
+  const containerRef = useRef<HTMLElement | null>(null);
+  const rafId = useRef<number | null>(null);
 
-  // Spring physics for smooth cursor spotlight motion
+  // Spring physics for smooth cursor spotlight motion (motion values do not trigger re-renders)
   const spotlightX = useMotionValue(600);
   const spotlightY = useMotionValue(350);
   const spotlightSpringX = useSpring(spotlightX, { stiffness: 140, damping: 24 });
   const spotlightSpringY = useSpring(spotlightY, { stiffness: 140, damping: 24 });
 
+  const handleMouseEnter = useCallback(() => {
+    if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+    setIsHovered(true);
+  }, []);
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
+      if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+        return;
+      }
+
       const rect = e.currentTarget.getBoundingClientRect();
       const relX = e.clientX - rect.left;
       const relY = e.clientY - rect.top;
@@ -42,29 +54,38 @@ export function CyberBackgroundWrapper({
       spotlightX.set(relX);
       spotlightY.set(relY);
 
-      setCursorPos({
-        x: Math.round((relX / rect.width) * 100),
-        y: Math.round((relY / rect.height) * 100),
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          const pctX = ((relX / rect.width) * 100).toFixed(1);
+          const pctY = ((relY / rect.height) * 100).toFixed(1);
+          containerRef.current.style.setProperty("--cursor-x", `${pctX}%`);
+          containerRef.current.style.setProperty("--cursor-y", `${pctY}%`);
+        }
       });
-
-      if (!isHovered) setIsHovered(true);
     },
-    [isHovered, spotlightX, spotlightY]
+    [spotlightX, spotlightY]
   );
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
   }, []);
 
   return (
     <Component
+      ref={containerRef}
       className={`relative overflow-hidden ${className}`}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       {...props}
     >
-      {/* Visual background layer - non-interactive and layered at z-0 */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden z-0">
+      {/* Visual background layer - isolated with contain to prevent paint invalidation on children */}
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden z-0"
+        style={{ contain: "layout style paint" }}
+      >
         {/* Cyber Scanline Overlay */}
         {showScanline && (
           <div
@@ -73,7 +94,7 @@ export function CyberBackgroundWrapper({
           />
         )}
 
-        {/* Cyber Grid Pattern with Radial Cursor Mask (Hero-style matrix) */}
+        {/* Cyber Grid Pattern with Radial Cursor Mask (Driven directly by CSS Custom Properties) */}
         <div
           className="absolute inset-0 transition-opacity duration-500"
           style={{
@@ -83,17 +104,17 @@ export function CyberBackgroundWrapper({
             `,
             backgroundSize: `${gridSize}px ${gridSize}px`,
             maskImage: isHovered
-              ? `radial-gradient(circle 520px at ${cursorPos.x}% ${cursorPos.y}%, black 20%, transparent 80%)`
+              ? "radial-gradient(circle 520px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 20%, transparent 80%)"
               : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
             WebkitMaskImage: isHovered
-              ? `radial-gradient(circle 520px at ${cursorPos.x}% ${cursorPos.y}%, black 20%, transparent 80%)`
+              ? "radial-gradient(circle 520px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 20%, transparent 80%)"
               : "radial-gradient(ellipse 65% 55% at 50% 45%, black 15%, transparent 75%)",
           }}
         />
 
-        {/* Interactive Cursor Spotlight Glow (Neon cyan #06b6d4 & purple #a855f7) */}
+        {/* Interactive Cursor Spotlight Glow */}
         <motion.div
-          className="absolute w-[650px] h-[650px] rounded-full blur-[115px]"
+          className="absolute w-[650px] h-[650px] rounded-full blur-[115px] will-change-transform"
           style={{
             x: spotlightSpringX,
             y: spotlightSpringY,

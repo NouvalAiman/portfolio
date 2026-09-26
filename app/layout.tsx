@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nouval.dev"),
   title: {
     default: "Nouval — Full Stack Engineer",
     template: "%s | Nouval",

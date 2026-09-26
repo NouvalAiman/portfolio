@@ -65,6 +65,7 @@ export default async function Experience() {
             href="https://linkedin.com/in/nouval-aiman" 
             target="_blank" 
             rel="noopener noreferrer" 
+            aria-label="View Full Timeline on LinkedIn"
             className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-cyan-500/50 text-white font-mono text-sm transition-all group hover:bg-white/10"
           >
             <svg className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>

@@ -136,7 +136,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-muted font-mono">
                 <Mail className="w-4 h-4 text-primary/70" />
-                <a href="mailto:nouvalaiman51@gmail.com" className="hover:text-primary transition-colors">nouvalaiman51@gmail.com</a>
+                <a href="mailto:nouvalaiman1@gmail.com" aria-label="Send email to nouvalaiman1@gmail.com" className="hover:text-primary transition-colors">nouvalaiman1@gmail.com</a>
               </li>
               <li className="flex items-center gap-2 text-muted font-mono">
                 <Terminal className="w-4 h-4 text-primary/70" />

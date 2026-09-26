@@ -133,6 +133,7 @@ export function Contact() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${item.label}: ${item.value}`}
                     className="group flex items-center gap-4 p-3 glass border-border/50 rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
                     whileHover={{ x: 4 }}
                   >
@@ -313,7 +314,7 @@ export function Contact() {
               <SubmitButton />
 
               <p className="text-center text-xs text-muted font-mono mt-4">
-                No backend? <a href="mailto:nouvalaiman51@gmail.com" className="text-primary hover:underline">Email directly</a> instead.
+                No backend? <a href="mailto:nouvalaiman51@gmail.com" aria-label="Send email directly to nouvalaiman51@gmail.com" className="text-primary hover:underline">Email directly</a> instead.
               </p>
             </form>
           </FadeIn>

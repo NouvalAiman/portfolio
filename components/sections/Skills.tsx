@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import {
   Terminal,
@@ -158,34 +158,56 @@ const focusedItems = [
 export function Skills() {
   // --- Background Cursor Spotlight & Torch Grid ---
   const [isHovered, setIsHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const skillsRef = useRef<HTMLElement | null>(null);
+  const rafId = useRef<number | null>(null);
+
   const spotlightX = useMotionValue(600);
   const spotlightY = useMotionValue(300);
   const springX = useSpring(spotlightX, { stiffness: 140, damping: 24 });
   const springY = useSpring(spotlightY, { stiffness: 140, damping: 24 });
 
+  const handleMouseEnter = useCallback(() => {
+    if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+    setIsHovered(true);
+  }, []);
+
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
+      if (typeof window !== "undefined" && window.matchMedia && !window.matchMedia("(pointer: fine)").matches) {
+        return;
+      }
+
       const rect = e.currentTarget.getBoundingClientRect();
       const x = Math.round(e.clientX - rect.left);
       const y = Math.round(e.clientY - rect.top);
       spotlightX.set(x);
       spotlightY.set(y);
-      setMousePos({ x, y });
-      if (!isHovered) setIsHovered(true);
+
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        if (skillsRef.current) {
+          skillsRef.current.style.setProperty("--mouse-x", `${x}px`);
+          skillsRef.current.style.setProperty("--mouse-y", `${y}px`);
+        }
+      });
     },
-    [isHovered, spotlightX, spotlightY]
+    [spotlightX, spotlightY]
   );
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
   }, []);
 
   return (
     <section
+      ref={skillsRef}
       id="skills"
       className="relative py-20 sm:py-28 lg:py-32 overflow-hidden bg-[#050505]"
       aria-labelledby="skills-heading"
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -198,7 +220,7 @@ export function Skills() {
         style={{ backgroundImage: "var(--scanline)" }}
       />
 
-      {/* Dynamic Flashlight / Cursor-Revealed Cyber Grid (Torch Effect) */}
+      {/* Dynamic Flashlight / Cursor-Revealed Cyber Grid (Torch Effect driven by CSS vars) */}
       <div
         className={`pointer-events-none absolute inset-0 z-0 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "opacity-0"
@@ -210,18 +232,19 @@ export function Skills() {
           `,
           backgroundSize: "44px 44px",
           maskImage: isHovered
-            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+            ? "radial-gradient(350px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%)"
             : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
           WebkitMaskImage: isHovered
-            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
+            ? "radial-gradient(350px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%)"
             : "radial-gradient(0px circle at 0px 0px, transparent 0%, transparent 100%)",
         }}
       />
 
       {/* Background Cursor Spotlight (Hanya di layer background, pointer-events-none) */}
       <motion.div
-        className="pointer-events-none absolute w-[650px] h-[650px] rounded-full blur-[120px] transition-opacity duration-300 z-0"
+        className="pointer-events-none absolute w-[650px] h-[650px] rounded-full blur-[120px] transition-opacity duration-300 z-0 will-change-transform"
         style={{
+          contain: "layout style paint",
           x: springX,
           y: springY,
           translateX: "-50%",
@@ -373,10 +396,10 @@ export function Skills() {
               </StaggerContainer>
 
               <FadeIn delay={0.4} direction="up" className="mt-8">
-                <h4 className="font-heading font-semibold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="font-heading font-semibold text-foreground mb-4 flex items-center gap-2">
                   <Brain className="w-5 h-5 text-secondary" />
                   Always Learning
-                </h4>
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {learningItems.map((item) => (
                     <motion.span
